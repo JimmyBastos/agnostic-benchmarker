@@ -1,0 +1,14 @@
+{
+  "name": "agnostic-benchmarker",
+  "version": "1.0.0",
+  "description": "Agnostic Webdriver Benchmarker",
+  "main": "./dist/index.js",
+  "repository": "https://github.com/JimmyBastos/agnostic-benchmarker",
+  "author": "Jimmy Bastos",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^5.3.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.1.6"
+  },
+}
