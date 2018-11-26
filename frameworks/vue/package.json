@@ -1,0 +1,33 @@
+{
+  "name": "vue-bechmark",
+  "version": "0.1.0",
+  "private": true,
+  "framework-metadata": {
+    "frameworkVersionFromPackage": "vue"
+  },
+  "scripts": {
+    "start:dev": "vue-cli-service serve",
+    "start:prod": "npm rum build:prod && http-server ./dist",
+    "build:prod": "vue-cli-service build"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "pure-css": "^1.0.4",
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.1.1",
+    "@vue/cli-plugin-eslint": "^3.1.1",
+    "@vue/cli-service": "^3.1.1",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-config-standard-jsx": "^6.0.2",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-vue": "^5.0.0-0",
+    "http-server": "^0.11.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.17"
+  }
+}

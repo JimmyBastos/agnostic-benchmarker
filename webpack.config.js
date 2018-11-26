@@ -1,18 +1,28 @@
+const path = require('path')
+
 module.exports = {
-    entry: "./src/index.tsx",
-    output: {
-        filename: "bundle.js"
+  entry: './src/index.ts',
+  mode: process.env.NODE_ENV,
+  target: "node",
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      use: 'ts-loader',
+      exclude: /node_modules/
+    }],
+
+    noParse: /lighthouse/
+  },
+
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '~': path.resolve(__dirname, 'src'),
+      'modules': path.resolve(__dirname, 'node_modules')
     },
-     "paths": {
-      "@/*": ["src/*"],
-      "~/*": ["src/*"],
-    },
-    resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
-    },
-    module: {
-        loaders: [
-            { test: /\.tsx?$/, loader: "ts-loader" }
-        ]
-    }
+  },
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist')
+  }
 }

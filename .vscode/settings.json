@@ -1,0 +1,16 @@
+{
+  // Path intelisense Aliases
+  "path-intellisense.mappings": {
+    "@": "${workspaceRoot}/src",
+    "~": "${workspaceRoot}/src",
+  },
+  // Include Emmet Snippets
+  "emmet.includeLanguages": {
+    "vue": "html"
+  },
+  //Disable Editor Formatter
+  "javascript.format.enable": false,
+  //Disable Vetur Formatter
+  "tslint.enable": true, //Enable Eslint
+  "tslint.autoFixOnSave": true //Autofix any fixable errors when linting
+}
