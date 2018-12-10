@@ -39,7 +39,7 @@ import {
 
 promise.USE_PROMISE_MANAGER = false
 
-interface ITimingresult {
+interface ITimingResult {
   type: string
   ts: number
   dur?: number
@@ -49,7 +49,7 @@ interface ITimingresult {
 }
 
 function extractRelevantEvents(entries: logging.Entry[]) {
-  const filteredEvents: ITimingresult[] = []
+  const filteredEvents: ITimingResult[] = []
   const protocolEvents: any[] = []
   entries.forEach((x) => {
     const e = JSON.parse(x.message).message
@@ -74,18 +74,18 @@ function extractRelevantEvents(entries: logging.Entry[]) {
     } else if (e.params.name === 'Paint') {
       if (config.LOG_TIMELINE) { console.log('PAINT ', JSON.stringify(e)) }
       filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts + e.params.dur, evt: JSON.stringify(e) })
-    } else if (e.params.name === 'Rasterize') {
-      console.log('RASTERIZE ', JSON.stringify(e))
-      filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts + e.params.dur, evt: JSON.stringify(e) })
-    } else if (e.params.name === 'CompositeLayers') {
-      console.log('COMPOSITE ', JSON.stringify(e))
-      filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts, evt: JSON.stringify(e) })
-    } else if (e.params.name === 'Layout') {
-      console.log('LAYOUT ', JSON.stringify(e))
-      filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: e.params.ts, evt: JSON.stringify(e) })
-    } else if (e.params.name === 'UpdateLayerTree') {
-      console.log('UPDATELAYER ', JSON.stringify(e))
-      filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts + e.params.dur, evt: JSON.stringify(e) })
+      // } else if (e.params.name === 'Rasterize') {
+      //   console.log('RASTERIZE ', JSON.stringify(e))
+      //   filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts + e.params.dur, evt: JSON.stringify(e) })
+      // } else if (e.params.name === 'CompositeLayers') {
+      //   console.log('COMPOSITE ', JSON.stringify(e))
+      //   filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts, evt: JSON.stringify(e) })
+      // } else if (e.params.name === 'Layout') {
+      //   console.log('LAYOUT ', JSON.stringify(e))
+      //   filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: e.params.ts, evt: JSON.stringify(e) })
+      // } else if (e.params.name === 'UpdateLayerTree') {
+      //   console.log('UPDATELAYER ', JSON.stringify(e))
+      //   filteredEvents.push({ type: 'paint', ts: +e.params.ts, dur: +e.params.dur, end: +e.params.ts + e.params.dur, evt: JSON.stringify(e) })
     } else if (e.params.name === 'MajorGC' && e.params.args.usedHeapSizeAfter) {
       filteredEvents.push({ type: 'gc', ts: +e.params.ts, end: +e.params.ts, mem: Number(e.params.args.usedHeapSizeAfter) / 1024 / 1024 })
       if (config.LOG_TIMELINE) { console.log('GC ', JSON.stringify(e)) }
@@ -94,8 +94,8 @@ function extractRelevantEvents(entries: logging.Entry[]) {
   return { filteredEvents, protocolEvents }
 }
 
-async function fetchEventsFromPerformanceLog(driver: WebDriver): Promise<{ timingResults: ITimingresult[], protocolResults: any[] }> {
-  let timingResults: ITimingresult[] = []
+async function fetchEventsFromPerformanceLog(driver: WebDriver): Promise<{ timingResults: ITimingResult[], protocolResults: any[] }> {
+  let timingResults: ITimingResult[] = []
   let protocolResults: any[] = []
   let entries = []
   do {
@@ -108,13 +108,13 @@ async function fetchEventsFromPerformanceLog(driver: WebDriver): Promise<{ timin
 }
 
 function type_eq(requiredType: string) {
-  return (e: ITimingresult) => e.type === requiredType
+  return (e: ITimingResult) => e.type === requiredType
 }
 function type_neq(requiredType: string) {
-  return (e: ITimingresult) => e.type !== requiredType
+  return (e: ITimingResult) => e.type !== requiredType
 }
 
-function asString(res: ITimingresult[]): string {
+function asString(res: ITimingResult[]): string {
   return res.reduce((old, cur) => old + '\n' + JSON.stringify(cur), '')
 }
 
@@ -238,7 +238,7 @@ async function computeResultsCPU(driver: WebDriver, benchmarkOptions: IBenchmark
         if (paint && paint.end) { console.log('duration to paint ', ((paint.end - clicks[0].ts) / 1000.0)) }
       })
 
-      const lastPaint = R.reduce((max, elem) => max.end > elem.end ? max : elem, { end: 0 } as ITimingresult, paints)
+      const lastPaint = R.reduce((max, elem) => max.end > elem.end ? max : elem, { end: 0 } as ITimingResult, paints)
 
       const upperBoundForSoundnessCheck = (R.last(eventsDuringBenchmark).end - eventsDuringBenchmark[0].ts) / 1000.0
       const duration = (lastPaint.end - clicks[0].ts) / 1000.0

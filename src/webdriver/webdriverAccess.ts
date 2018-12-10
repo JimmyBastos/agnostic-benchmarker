@@ -97,7 +97,6 @@ export function testTextNotContained(driver: WebDriver, xpath: string, text: str
         elem = await findByXPath(elem, xpath)
         if (elem == null) { return false }
         const value = await elem.getText()
-        console.log(value)
         return !!value && !value.includes(text)
       } catch (err) {
         skipError('testTextNotContained', err, xpath, `text = ${text}`)

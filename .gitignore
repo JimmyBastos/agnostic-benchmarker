@@ -4,6 +4,7 @@
 
 ### Node ###
 # Logs
+*error*
 logs
 *.log
 npm-debug.log*
@@ -71,5 +72,9 @@ typings/
 
 # FuseBox cache
 .fusebox/
+
+# Benchmark Data
+results/
+prefs/
 
 # End of https://www.gitignore.io/api/node

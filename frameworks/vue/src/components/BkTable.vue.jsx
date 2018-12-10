@@ -20,6 +20,7 @@ const BkTable = {
   },
 
   render (h) {
+    // style={{ backgroundColor: color }}
     const ColorList = this.colors.map(({ color, color: label, id }) => (
       <tr class='bk-table-row'>
         <td class='bk-table-id'>
@@ -28,7 +29,6 @@ const BkTable = {
 
         <td
           class='bk-table-cell'
-          style={{ backgroundColor: color }}
         >
           <span class='bk-table-label'>
             {label}

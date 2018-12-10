@@ -14,7 +14,7 @@ let _currentIndex = 0
 
 function generateAmountOfColors (amount = 1, startIndex = _currentIndex) {
   return Array(amount).fill().map((_, i) => ({
-    id    : (++i) + startIndex,
+    id    : startIndex + (++i),
     color : randomColor()
   }))
 }
@@ -28,21 +28,17 @@ export class Store {
     return this._colorList
   }
 
-  set colors (colors = []) {
+  set colors (colors) {
     this._colorList = colors
     if (Array.isArray(colors)) {
       _currentIndex = this._colorList.length
     }
   }
 
-  generateColors (amount = 1000) {
-    this.colors = generateAmountOfColors(amount, 0)
-  }
-
   appendColors (amount = 1) {
     this.colors = [].concat(
-      this.colors,
-      generateAmountOfColors(amount)
+      generateAmountOfColors(amount),
+      this.colors
     )
   }
 
@@ -50,9 +46,21 @@ export class Store {
     this.colors = _shuffle(this.colors)
   }
 
-  deleteColor (colorID) {
-    // this.colors = this.colors.filter(clr => clr.id !== +colorID)
+  sortColorsById () {
+    this.colors = [...this.colors].sort((next, curr) => (next.id - curr.id))
+  }
 
+  swapColors ([idxOne, idxTwo]) {
+    const size = this.colors.length
+    if (size > idxOne && size > idxTwo) {
+      const newColorOne = this.colors[idxTwo]
+      const newColorTwo = this.colors[idxOne]
+      const newColors = this.colors.map((clr, idx) => (idx === idxOne) ? (newColorOne) : (idx === idxTwo ? newColorTwo : clr))
+      this.colors = newColors
+    }
+  }
+
+  deleteColor (colorID) {
     const idx = this.colors.findIndex(clr => clr.id === +colorID)
 
     if (~idx) {
@@ -64,14 +72,9 @@ export class Store {
   }
 
   updateColor (colorID) {
-    this.colors = this.colors.map(clr => (clr.id === +colorID)
-      ? (
-        { ...clr, color: randomColor() }
-      )
-      : (
-        clr
-      )
-    )
+    const idx = this.colors.findIndex(clr => clr.id === +colorID)
+    let newColors = [ ...this.colors ]; newColors[idx] = { ...newColors[idx], color: randomColor() }
+    this.colors = newColors
   }
 
   clearColors () {

@@ -95,7 +95,6 @@ function testTextNotContained(driver, xpath, text, timeout = common_1.config.TIM
                 return false;
             }
             const value = yield elem.getText();
-            console.log(value);
             return !!value && !value.includes(text);
         }
         catch (err) {

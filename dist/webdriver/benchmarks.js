@@ -16,26 +16,8 @@ var BenchmarkType;
     BenchmarkType[BenchmarkType["MEM"] = 1] = "MEM";
     BenchmarkType[BenchmarkType["STARTUP"] = 2] = "STARTUP";
 })(BenchmarkType = exports.BenchmarkType || (exports.BenchmarkType = {}));
-// benchRun,
-// benchUpdate,
-// benchSelect,
-// benchSwapRows,
-// benchRemove,
-// benchRunBig,
-// benchAppendToManyRows,
-// benchClear,
-// benchReadyMemory,
-// benchRunMemory,
-// benchUpdate5Memory,
-// benchReplace5Memory,
-// benchCreateClear5Memory,
-// benchStartup,
-// button__add
-// button__populate
-// button__populate_hot
-// button__shuffle
-// button__clear
 const SHORT_TIMEOUT = 20 * 1000;
+const TABLE_SIZE = 100;
 class Benchmark {
     constructor(benchmarkInfo) {
         this.benchmarkInfo = benchmarkInfo;
@@ -51,12 +33,12 @@ class Benchmark {
     extractResult(results, resultKind) { return results; }
 }
 exports.Benchmark = Benchmark;
-const benchAdd = new class extends Benchmark {
+const benchAddOne = new class extends Benchmark {
     constructor() {
         super({
             id: '01_add_one',
-            label: 'Add one row',
-            description: 'Duration for creating 1 row after the page loaded.',
+            label: 'adicionar item',
+            description: 'Tempo gasto para inserir um registro na lista',
             type: BenchmarkType.CPU,
         });
     }
@@ -72,80 +54,12 @@ const benchAdd = new class extends Benchmark {
         });
     }
 }();
-const benchPopulate = new class extends Benchmark {
+const benchRemoveOne = new class extends Benchmark {
     constructor() {
         super({
-            id: '02_run1k',
-            label: 'populate 1.000 rows',
-            description: 'Duration for creating 1.000 rows after the page loaded.',
-            type: BenchmarkType.CPU,
-        });
-    }
-    init(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
-        });
-    }
-    run(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span');
-        });
-    }
-}();
-const benchPopulateHot = new class extends Benchmark {
-    constructor() {
-        super({
-            id: '03_run10k',
-            label: 'populate 10.000 rows',
-            description: 'Duration for creating 10.000 rows after the page loaded.',
-            type: BenchmarkType.CPU,
-        });
-    }
-    init(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate_hot', SHORT_TIMEOUT);
-        });
-    }
-    run(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.clickElementById(driver, 'button__populate_hot');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[10000]/td[2]/span');
-        });
-    }
-}();
-const benchSuffle = new class extends Benchmark {
-    constructor() {
-        super({
-            id: '04_shuffle1k',
-            label: 'shuffle all rows',
-            description: 'Duration for shuffle all rows of the table.',
-            type: BenchmarkType.CPU,
-        });
-    }
-    init(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
-            // for (let i = 0; i < config.WARMUP_COUNT; i++) {
-            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span');
-            // }
-        });
-    }
-    run(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
-            // TODO: Test the shuffle result
-            yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1000]/td[1]', '1000', SHORT_TIMEOUT);
-        });
-    }
-}();
-const benchUpdateCell = new class extends Benchmark {
-    constructor() {
-        super({
-            id: '06_update_cell',
-            label: 'clear rows',
-            description: 'Duration for remove 1 row to a 1000 rows table',
+            id: '02_remove_one',
+            label: 'remover item',
+            description: 'Tempo gasto para remover um registro em uma lista de 100 items',
             type: BenchmarkType.CPU,
         });
     }
@@ -153,31 +67,7 @@ const benchUpdateCell = new class extends Benchmark {
         return __awaiter(this, void 0, void 0, function* () {
             yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
             yield webdriverAccess_1.clickElementById(driver, 'button__populate');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span');
-        });
-    }
-    run(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const text = yield webdriverAccess_1.getTextByXPath(driver, '//tbody/tr[1]/td[2]/span');
-            yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update');
-            yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT);
-        });
-    }
-}();
-const benchRemoveCell = new class extends Benchmark {
-    constructor() {
-        super({
-            id: '07_remove_cell',
-            label: 'clear rows',
-            description: 'Duration for remove 1 row to a 1000 rows table',
-            type: BenchmarkType.CPU,
-        });
-    }
-    init(driver) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
-            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
         });
     }
     run(driver) {
@@ -188,21 +78,146 @@ const benchRemoveCell = new class extends Benchmark {
         });
     }
 }();
-const benchClear = new class extends Benchmark {
+const benchUpdateOne = new class extends Benchmark {
     constructor() {
         super({
-            id: '05_clear1k_x8',
-            label: 'clear rows',
-            description: 'Duration to clear the table filled with 1.000 rows. Simulated 8x CPU slowdown',
+            id: '03_update_one',
+            label: 'atualizar item',
+            description: 'Tempo gasto para atualizar um registro em uma lista de 100 items',
             type: BenchmarkType.CPU,
-            throttleCPU: 8,
         });
     }
     init(driver) {
         return __awaiter(this, void 0, void 0, function* () {
             yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
             yield webdriverAccess_1.clickElementById(driver, 'button__populate');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const text = yield webdriverAccess_1.getTextByXPath(driver, '//tbody/tr[1]/td[2]/span');
+            yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update');
+            yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT);
+        });
+    }
+}();
+const benchPopulate = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '04_populate100',
+            label: 'inserir 100 items',
+            description: 'Tempo gasto para inserir 100 registros na lista.',
+            type: BenchmarkType.CPU,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+        });
+    }
+}();
+const benchSwapRows = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '05_swap_rows',
+            label: 'permutar items',
+            description: 'Duração para permutar dois registros em uma lista de 100 items',
+            type: BenchmarkType.CPU,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const oneRowPath = `//tbody/tr[1]/td[1]`, anotherRowPath = `// tbody/tr[${TABLE_SIZE}]/td[1]`, oneRowText = yield webdriverAccess_1.getTextByXPath(driver, oneRowPath), anotherRowText = yield webdriverAccess_1.getTextByXPath(driver, anotherRowPath);
+            yield webdriverAccess_1.clickElementById(driver, 'button__swap');
+            yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[999]/td[1]`, oneRowText, SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT);
+        });
+    }
+}();
+const benchSuffle = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '06_shuffle100',
+            label: 'embaralhar lista',
+            description: 'Duração para embaralhar uma lista de 100 items',
+            type: BenchmarkType.CPU,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const row = Math.floor((Math.random() * TABLE_SIZE) + 1);
+            const text = row.toString();
+            yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
+            yield webdriverAccess_1.testTextNotContained(driver, `//tbody/tr[${row}]/td[1]`, text, SHORT_TIMEOUT);
+        });
+    }
+}();
+const benchSort = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '07_sort100',
+            label: 'ordenar lista',
+            description: 'Duração para ordenar uma lista de 100 items',
+            type: BenchmarkType.CPU,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const row = Math.floor((Math.random() * TABLE_SIZE) + 1);
+            const text = row.toString();
+            // populate table
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+            // shuffle table
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__shuffle', SHORT_TIMEOUT);
+            yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
+            yield webdriverAccess_1.testTextNotContained(driver, `//tbody/tr[${row}]/td[1]`, text, SHORT_TIMEOUT);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.clickElementById(driver, 'button__sort');
+            yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[1]/td[1]`, '1', SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[100]/td[1]`, '100', SHORT_TIMEOUT);
+        });
+    }
+}();
+const benchClearAll = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '08_clear100',
+            label: 'limpar lista',
+            description: 'Duração para limpar uma lista com 100 registros',
+            type: BenchmarkType.CPU,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
         });
     }
     run(driver) {
@@ -215,9 +230,9 @@ const benchClear = new class extends Benchmark {
 const benchReadyMemory = new class extends Benchmark {
     constructor() {
         super({
-            id: '06_ready-memory',
-            label: 'ready memory',
-            description: 'Memory usage after page load.',
+            id: '20_ready-memory',
+            label: 'memória ao iniciar',
+            description: 'Uso da memória após o carregamento da página.',
             type: BenchmarkType.MEM,
         });
     }
@@ -238,33 +253,107 @@ const benchReadyMemory = new class extends Benchmark {
         });
     }
 }();
-const benchRunMemory = new class extends Benchmark {
+const benchPopulateMemory = new class extends Benchmark {
     constructor() {
         super({
-            id: '07_run-memory',
-            label: 'run memory',
-            description: 'Memory usage after adding 1000 rows.',
+            id: '21_populate-memory',
+            label: 'memória ao inserir 100 itens',
+            description: 'Uso de memória após inserir 100 registros na lista.',
+            type: BenchmarkType.MEM,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+        });
+    }
+}();
+const benchUpdate5Memory = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '22_update5-memory',
+            label: 'memória ao atualizar item',
+            description: 'Uso de memória após atualizar um item 5 vezes',
             type: BenchmarkType.MEM,
         });
     }
     init(driver) {
         return __awaiter(this, void 0, void 0, function* () {
             yield webdriverAccess_1.testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT);
+            yield webdriverAccess_1.clickElementById(driver, 'button__add');
+            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[1]/td[2]/span');
         });
     }
     run(driver) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield webdriverAccess_1.clickElementById(driver, 'button__add');
-            yield webdriverAccess_1.testElementLocatedByXpath(driver, '//tbody/tr[2]/td[2]/span');
+            for (let i = 0; i < 5; i++) {
+                const text = yield webdriverAccess_1.getTextByXPath(driver, '//tbody/tr[1]/td[2]/span');
+                yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update');
+                yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT);
+            }
         });
     }
-}();
+};
+const benchPopulate5Memory = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '23_populate5-memory',
+            label: 'memória ao inserir 100 items (5 ciclos)',
+            description: 'Uso de memória após inserir 100 registros na lista 5 vezes.',
+            type: BenchmarkType.MEM,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let i = 0; i < 5; i++) {
+                yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+                yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE * (i + 1)}]/td[2]/span`);
+            }
+        });
+    }
+};
+const benchPopulateClear5Memory = new class extends Benchmark {
+    constructor() {
+        super({
+            id: '24_run-clear-memory',
+            label: 'memória ao inserir e limpar 100 items (5 ciclos)',
+            description: 'Uso de memória após inserir e limpar 100 registros na lista 5 vezes.',
+            type: BenchmarkType.MEM,
+        });
+    }
+    init(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
+        });
+    }
+    run(driver) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let i = 0; i < 5; i++) {
+                yield webdriverAccess_1.clickElementById(driver, 'button__populate');
+                yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
+                yield webdriverAccess_1.clickElementById(driver, 'button__clear');
+                yield webdriverAccess_1.testElementNotLocatedByXPath(driver, '//tbody/tr[1]');
+            }
+        });
+    }
+};
 const benchStartup = new class extends Benchmark {
     constructor() {
         super({
             id: '30_startup',
-            label: 'startup time',
-            description: 'Time for loading, parsing and starting up',
+            label: 'tempo de inicialização',
+            description: 'Tempo para analisar/compilar/avaliar os scripts (html, css, js)',
             type: BenchmarkType.STARTUP,
         });
     }
@@ -292,41 +381,46 @@ const benchStartup = new class extends Benchmark {
 }();
 const benchStartupConsistentlyInteractive = {
     id: '31_startup-ci',
-    label: 'consistently interactive',
-    description: 'a pessimistic TTI - when the CPU and network are both definitely very idle. (no more CPU tasks over 50ms)',
+    label: 'tempo até interatividade',
+    description: 'Tempo até interatividade',
     type: BenchmarkType.STARTUP,
     property: 'TimeToConsistentlyInteractive',
 };
 const benchStartupBootup = {
     id: '32_startup-bt',
-    label: 'script bootup time',
-    description: 'the total ms required to parse/compile/evaluate all the page\'s scripts',
+    label: 'tempo de carregamento de scripts',
+    description: 'Tempo total para carregar, compilar e avaliar todos os scripts da página.',
     type: BenchmarkType.STARTUP,
     property: 'ScriptBootUpTtime',
 };
 const benchStartupMainThreadWorkCost = {
     id: '33_startup-mainthreadcost',
-    label: 'main thread work cost',
-    description: 'total amount of time spent doing work on the main thread. includes style/layout/etc.',
+    label: 'utilização da tread principal',
+    description: 'Quantidade total de tempo gasto executando tarefas na thread principal.',
     type: BenchmarkType.STARTUP,
     property: 'MainThreadWorkCost',
 };
 const benchStartupTotalBytes = {
     id: '34_startup-totalbytes',
-    label: 'total kilobyte weight',
-    description: 'network transfer cost (post-compression) of all the resources loaded into the page.',
+    label: 'consumo da rede em kilobytes',
+    description: 'Custo de recursos de rede de todos os recursos carregados na página (gziped).',
     type: BenchmarkType.STARTUP,
     property: 'TotalKiloByteWeight',
 };
 // const benchStartup = new BenchStartup()
 exports.benchmarks = [
-    // benchStartup,
-    // benchAdd,
-    // benchPopulate,
-    // benchPopulateHot,
-    // benchSuffle,
-    // benchClear,
-    benchRemoveCell,
+    benchStartup,
+    benchAddOne,
+    benchPopulate,
+    benchSuffle,
+    benchSort,
+    benchClearAll,
+    benchUpdateOne,
+    benchReadyMemory,
+    benchPopulateMemory,
+    benchUpdate5Memory,
+    benchPopulate5Memory,
+    benchPopulateClear5Memory,
 ];
 function fileName(framework, benchmark) {
     return `${framework.fullNameWithVersion}_${benchmark.id}.json`;

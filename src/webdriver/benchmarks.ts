@@ -28,28 +28,9 @@ export enum BenchmarkType {
   STARTUP,
 }
 
-// benchRun,
-// benchUpdate,
-// benchSelect,
-// benchSwapRows,
-// benchRemove,
-// benchRunBig,
-// benchAppendToManyRows,
-// benchClear,
-// benchReadyMemory,
-// benchRunMemory,
-// benchUpdate5Memory,
-// benchReplace5Memory,
-// benchCreateClear5Memory,
-// benchStartup,
-
-// button__add
-// button__populate
-// button__populate_hot
-// button__shuffle
-// button__clear
-
 const SHORT_TIMEOUT = 20 * 1000
+
+const TABLE_SIZE = 100
 
 export interface IBenchmarkInfo {
   id: string
@@ -93,19 +74,21 @@ export interface IStartupBenchmarkResult extends IBenchmarkInfo {
   property: keyof ILighthouseData
 }
 
-const benchAdd = new class extends Benchmark {
+const benchAddOne = new class extends Benchmark {
   constructor() {
     super({
       id: '01_add_one',
-      label: 'Add one row',
-      description: 'Duration for creating 1 row after the page loaded.',
+      label: 'adicionar item',
+      description: 'Tempo gasto para inserir um registro na lista',
       type: BenchmarkType.CPU,
     })
   }
 
+
   public async init(driver: WebDriver) {
     await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
   }
+
 
   public async run(driver: WebDriver) {
     await clickElementById(driver, 'button__add')
@@ -113,105 +96,22 @@ const benchAdd = new class extends Benchmark {
   }
 }()
 
-const benchPopulate = new class extends Benchmark {
+const benchRemoveOne = new class extends Benchmark {
   constructor() {
     super({
-      id: '02_run1k',
-      label: 'populate 1.000 rows',
-      description: 'Duration for creating 1.000 rows after the page loaded.',
+      id: '02_remove_one',
+      label: 'remover item',
+      description: 'Tempo gasto para remover um registro em uma lista de 100 items',
       type: BenchmarkType.CPU,
     })
   }
 
   public async init(driver: WebDriver) {
     await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
-  }
-
-  public async run(driver: WebDriver) {
     await clickElementById(driver, 'button__populate')
-    await testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span')
-  }
-}()
-
-const benchPopulateHot = new class extends Benchmark {
-  constructor() {
-    super({
-      id: '03_run10k',
-      label: 'populate 10.000 rows',
-      description: 'Duration for creating 10.000 rows after the page loaded.',
-      type: BenchmarkType.CPU,
-    })
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
   }
 
-  public async init(driver: WebDriver) {
-    await testElementLocatedById(driver, 'button__populate_hot', SHORT_TIMEOUT)
-  }
-
-  public async run(driver: WebDriver) {
-    await clickElementById(driver, 'button__populate_hot')
-    await testElementLocatedByXpath(driver, '//tbody/tr[10000]/td[2]/span')
-  }
-}()
-
-const benchSuffle = new class extends Benchmark {
-  constructor() {
-    super({
-      id: '04_shuffle1k',
-      label: 'shuffle all rows',
-      description: 'Duration for shuffle all rows of the table.', // (with ' + config.WARMUP_COUNT + ' warmup iterations).
-      type: BenchmarkType.CPU,
-    })
-  }
-  public async init(driver: WebDriver) {
-    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
-    // for (let i = 0; i < config.WARMUP_COUNT; i++) {
-    await clickElementById(driver, 'button__populate')
-    await testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span')
-    // }
-  }
-  public async run(driver: WebDriver) {
-    await clickElementById(driver, 'button__shuffle')
-    // TODO: Test the shuffle result
-    await testTextNotContained(driver, '//tbody/tr[1000]/td[1]', '1000', SHORT_TIMEOUT)
-  }
-}()
-
-const benchUpdateCell = new class extends Benchmark {
-  constructor() {
-    super({
-      id: '06_update_cell',
-      label: 'clear rows',
-      description: 'Duration for remove 1 row to a 1000 rows table',
-      type: BenchmarkType.CPU,
-    })
-  }
-  public async init(driver: WebDriver) {
-    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
-    await clickElementById(driver, 'button__populate')
-    await testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span')
-  }
-  public async run(driver: WebDriver) {
-    const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
-
-    await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update')
-    await testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT)
-  }
-}()
-
-const benchRemoveCell = new class extends Benchmark {
-  constructor() {
-    super({
-      id: '07_remove_cell',
-      label: 'clear rows',
-      description: 'Duration for remove 1 row to a 1000 rows table',
-      type: BenchmarkType.CPU,
-    })
-  }
-  public async init(driver: WebDriver) {
-    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
-    await clickElementById(driver, 'button__populate')
-    await testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span')
-  }
   public async run(driver: WebDriver) {
     const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
 
@@ -220,21 +120,155 @@ const benchRemoveCell = new class extends Benchmark {
   }
 }()
 
-const benchClear = new class extends Benchmark {
+const benchUpdateOne = new class extends Benchmark {
   constructor() {
     super({
-      id: '05_clear1k_x8',
-      label: 'clear rows',
-      description: 'Duration to clear the table filled with 1.000 rows. Simulated 8x CPU slowdown',
+      id: '03_update_one',
+      label: 'atualizar item',
+      description: 'Tempo gasto para atualizar um registro em uma lista de 100 items',
       type: BenchmarkType.CPU,
-      throttleCPU: 8,
     })
   }
+
   public async init(driver: WebDriver) {
     await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
     await clickElementById(driver, 'button__populate')
-    await testElementLocatedByXpath(driver, '//tbody/tr[1000]/td[2]/span')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
   }
+
+  public async run(driver: WebDriver) {
+    const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
+
+    await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update')
+    await testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT)
+  }
+}()
+
+const benchPopulate = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '04_populate100',
+      label: 'inserir 100 items',
+      description: 'Tempo gasto para inserir 100 registros na lista.',
+      type: BenchmarkType.CPU,
+    })
+  }
+
+
+  public async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+  }
+
+
+  public async run(driver: WebDriver) {
+    await clickElementById(driver, 'button__populate')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
+  }
+}()
+
+const benchSwapRows = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '05_swap_rows',
+      label: 'permutar items',
+      description: 'Duração para permutar dois registros em uma lista de 100 items',
+      type: BenchmarkType.CPU,
+    })
+  }
+
+
+  public async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+    await clickElementById(driver, 'button__populate')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
+  }
+
+
+  public async run(driver: WebDriver) {
+    const
+      oneRowPath = `//tbody/tr[1]/td[1]`,
+      anotherRowPath = `// tbody/tr[${TABLE_SIZE}]/td[1]`,
+      oneRowText = await getTextByXPath(driver, oneRowPath),
+      anotherRowText = await getTextByXPath(driver, anotherRowPath)
+
+    await clickElementById(driver, 'button__swap')
+
+    await testTextContains(driver, `//tbody/tr[999]/td[1]`, oneRowText, SHORT_TIMEOUT)
+    await testTextContains(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT)
+  }
+}()
+
+const benchSuffle = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '06_shuffle100',
+      label: 'embaralhar lista',
+      description: 'Duração para embaralhar uma lista de 100 items',
+      type: BenchmarkType.CPU,
+    })
+  }
+
+  public async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+    await clickElementById(driver, 'button__populate')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
+  }
+
+  public async run(driver: WebDriver) {
+    const row = Math.floor((Math.random() * TABLE_SIZE) + 1)
+    const text = row.toString()
+    await clickElementById(driver, 'button__shuffle')
+    await testTextNotContained(driver, `//tbody/tr[${row}]/td[1]`, text, SHORT_TIMEOUT)
+  }
+}()
+
+const benchSort = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '07_sort100',
+      label: 'ordenar lista',
+      description: 'Duração para ordenar uma lista de 100 items',
+      type: BenchmarkType.CPU,
+    })
+  }
+
+  public async init(driver: WebDriver) {
+    const row = Math.floor((Math.random() * TABLE_SIZE) + 1)
+    const text = row.toString()
+    // populate table
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+    await clickElementById(driver, 'button__populate')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
+
+    // shuffle table
+    await testElementLocatedById(driver, 'button__shuffle', SHORT_TIMEOUT)
+    await clickElementById(driver, 'button__shuffle')
+    await testTextNotContained(driver, `//tbody/tr[${row}]/td[1]`, text, SHORT_TIMEOUT)
+  }
+
+  public async run(driver: WebDriver) {
+    await clickElementById(driver, 'button__sort')
+    await testTextContains(driver, `//tbody/tr[1]/td[1]`, '1', SHORT_TIMEOUT)
+    await testTextContains(driver, `//tbody/tr[100]/td[1]`, '100', SHORT_TIMEOUT)
+  }
+}()
+
+const benchClearAll = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '08_clear100',
+      label: 'limpar lista',
+      description: 'Duração para limpar uma lista com 100 registros',
+      type: BenchmarkType.CPU,
+    })
+  }
+
+  public async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+    await clickElementById(driver, 'button__populate')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
+  }
+
   public async run(driver: WebDriver) {
     await clickElementById(driver, 'button__clear')
     await testElementNotLocatedByXPath(driver, '//tbody/tr[1]')
@@ -244,52 +278,134 @@ const benchClear = new class extends Benchmark {
 const benchReadyMemory = new class extends Benchmark {
   constructor() {
     super({
-      id: '06_ready-memory',
-      label: 'ready memory',
-      description: 'Memory usage after page load.',
+      id: '20_ready-memory',
+      label: 'memória ao iniciar',
+      description: 'Uso da memória após o carregamento da página.',
       type: BenchmarkType.MEM,
     })
   }
+
   public async init(driver: WebDriver) {
     await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
   }
+
   public async run(driver: WebDriver) {
     await testElementNotLocatedByXPath(driver, '//tbody/tr[1]')
   }
+
   public async after(driver: WebDriver, framework: IFrameworkData) {
     await clickElementById(driver, 'button__add')
     await testElementLocatedByXpath(driver, '//tbody/tr[1]/td[2]/span')
   }
 }()
 
-const benchRunMemory = new class extends Benchmark {
+const benchPopulateMemory = new class extends Benchmark {
   constructor() {
     super({
-      id: '07_run-memory',
-      label: 'run memory',
-      description: 'Memory usage after adding 1000 rows.',
+      id: '21_populate-memory',
+      label: 'memória ao inserir 100 itens',
+      description: 'Uso de memória após inserir 100 registros na lista.',
       type: BenchmarkType.MEM,
     })
   }
+
+
   public async init(driver: WebDriver) {
-    await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
   }
+
+
   public async run(driver: WebDriver) {
-    await clickElementById(driver, 'button__add')
-    await testElementLocatedByXpath(driver, '//tbody/tr[2]/td[2]/span')
+    await clickElementById(driver, 'button__populate')
+    await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
   }
 }()
+
+
+const benchUpdate5Memory = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '22_update5-memory',
+      label: 'memória ao atualizar item',
+      description: 'Uso de memória após atualizar um item 5 vezes',
+      type: BenchmarkType.MEM,
+    })
+  }
+
+  async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
+    await clickElementById(driver, 'button__add')
+    await testElementLocatedByXpath(driver, '//tbody/tr[1]/td[2]/span')
+  }
+
+  async run(driver: WebDriver) {
+    for (let i = 0; i < 5; i++) {
+      const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
+      await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update')
+      await testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT)
+    }
+  }
+}
+
+const benchPopulate5Memory = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '23_populate5-memory',
+      label: 'memória ao inserir 100 items (5 ciclos)',
+      description: 'Uso de memória após inserir 100 registros na lista 5 vezes.',
+      type: BenchmarkType.MEM,
+    })
+  }
+
+  async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+  }
+
+  async run(driver: WebDriver) {
+    for (let i = 0; i < 5; i++) {
+      await clickElementById(driver, 'button__populate')
+      await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE * (i + 1)}]/td[2]/span`)
+    }
+  }
+}
+
+const benchPopulateClear5Memory = new class extends Benchmark {
+  constructor() {
+    super({
+      id: '24_populateclear5-memory',
+      label: 'memória ao inserir e limpar 100 items (5 ciclos)',
+      description: 'Uso de memória após inserir e limpar 100 registros na lista 5 vezes.',
+      type: BenchmarkType.MEM,
+    })
+  }
+
+  async init(driver: WebDriver) {
+    await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
+  }
+
+  async run(driver: WebDriver) {
+    for (let i = 0; i < 5; i++) {
+      await clickElementById(driver, 'button__populate')
+      await testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`)
+
+      await clickElementById(driver, 'button__clear')
+      await testElementNotLocatedByXPath(driver, '//tbody/tr[1]')
+    }
+  }
+}
 
 const benchStartup = new class extends Benchmark {
   constructor() {
     super({
       id: '30_startup',
-      label: 'startup time',
-      description: 'Time for loading, parsing and starting up',
+      label: 'tempo de inicialização',
+      description: 'Tempo para analisar/compilar/avaliar os scripts (html, css, js)',
       type: BenchmarkType.STARTUP,
     })
   }
+
   public async init(driver: WebDriver) { await driver.get(`http://localhost:${config.PORT}/`) }
+
   public async run(driver: WebDriver, framework: IFrameworkData) {
     await driver.get(`http://localhost:${config.PORT}`)
     await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
@@ -310,32 +426,32 @@ const benchStartup = new class extends Benchmark {
 
 const benchStartupConsistentlyInteractive: IStartupBenchmarkResult = {
   id: '31_startup-ci',
-  label: 'consistently interactive',
-  description: 'a pessimistic TTI - when the CPU and network are both definitely very idle. (no more CPU tasks over 50ms)',
+  label: 'tempo até interatividade',
+  description: 'Tempo até interatividade',
   type: BenchmarkType.STARTUP,
   property: 'TimeToConsistentlyInteractive',
 }
 
 const benchStartupBootup: IStartupBenchmarkResult = {
   id: '32_startup-bt',
-  label: 'script bootup time',
-  description: 'the total ms required to parse/compile/evaluate all the page\'s scripts',
+  label: 'tempo de carregamento de scripts',
+  description: 'Tempo total para carregar, compilar e avaliar todos os scripts da página.',
   type: BenchmarkType.STARTUP,
   property: 'ScriptBootUpTtime',
 }
 
 const benchStartupMainThreadWorkCost: IStartupBenchmarkResult = {
   id: '33_startup-mainthreadcost',
-  label: 'main thread work cost',
-  description: 'total amount of time spent doing work on the main thread. includes style/layout/etc.',
+  label: 'utilização da tread principal',
+  description: 'Quantidade total de tempo gasto executando tarefas na thread principal.',
   type: BenchmarkType.STARTUP,
   property: 'MainThreadWorkCost',
 }
 
 const benchStartupTotalBytes: IStartupBenchmarkResult = {
   id: '34_startup-totalbytes',
-  label: 'total kilobyte weight',
-  description: 'network transfer cost (post-compression) of all the resources loaded into the page.',
+  label: 'consumo da rede em kilobytes',
+  description: 'Custo de recursos de rede de todos os recursos carregados na página (gziped).',
   type: BenchmarkType.STARTUP,
   property: 'TotalKiloByteWeight',
 }
@@ -343,19 +459,18 @@ const benchStartupTotalBytes: IStartupBenchmarkResult = {
 // const benchStartup = new BenchStartup()
 
 export let benchmarks: Benchmark[] = [
-  // benchStartup,
-  // benchAdd,
-  // benchPopulate,
-  // benchPopulateHot,
-  // benchSuffle,
-  // benchClear,
-  benchRemoveCell,
-  // benchUpdateCell,
-  // benchReadyMemory,
-  // benchRunMemory,
-  // benchUpdate5Memory,
-  // benchReplace5Memory,
-  // benchCreateClear5Memory,
+  benchStartup,
+  benchAddOne,
+  benchPopulate,
+  benchSuffle,
+  benchSort,
+  benchClearAll,
+  benchUpdateOne,
+  benchReadyMemory,
+  benchPopulateMemory,
+  benchUpdate5Memory,
+  benchPopulate5Memory,
+  benchPopulateClear5Memory,
 ]
 
 export function fileName(framework: IFrameworkData, benchmark: IBenchmarkInfo) {
