@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App.template.vue'
 
 import 'pure-css'
 import '@/assets/styles/main.sass'
