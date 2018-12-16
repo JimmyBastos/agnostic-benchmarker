@@ -7,8 +7,7 @@ module.exports = {
 
   extends: [
     '@vue/standard',
-    'plugin:vue/recommended',
-    'standard-jsx'
+    'plugin:vue/recommended'
   ],
 
   rules: {

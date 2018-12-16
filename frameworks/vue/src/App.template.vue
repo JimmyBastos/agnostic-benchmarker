@@ -121,7 +121,7 @@
 
               <a
                 href=''
-                class='button_update pure-button app-button app-table-label'
+                class='button__update pure-button app-button app-table-label'
                 @click.prevent='updateColor(id)'
               >
                 <!-- button icon -->
@@ -141,7 +141,7 @@
             <td class='app-table-cell app-table-action'>
               <a
                 href=''
-                class='button_delete pure-button app-button app-table-label'
+                class='button__delete pure-button app-button app-table-label'
                 @click.prevent='deleteColor(id)'
               >
                 <!-- button icon -->

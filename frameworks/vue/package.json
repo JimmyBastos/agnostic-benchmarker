@@ -22,8 +22,6 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
-    "eslint-config-standard-jsx": "^6.0.2",
-    "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-vue": "^5.0.0-0",
     "http-server": "^0.11.1",
     "node-sass": "^4.9.0",
