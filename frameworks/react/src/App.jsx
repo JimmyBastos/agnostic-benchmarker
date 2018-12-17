@@ -4,6 +4,7 @@ import './App.style.sass'
 import Template from './App.template.jsx'
 
 import { Store } from './store.js'
+import { cpus } from 'os';
 const store = new Store()
 
 class App extends Component {
@@ -29,44 +30,37 @@ class App extends Component {
     this.setState({ ...this.state, colors: store.colors })
   }
 
-  handleAdd ($evt, amount = 1) {
-    $evt.preventDefault()
+  handleAdd (amount = 1) {
     store.appendColors(amount)
     this.syncData()
   }
 
-  handleShuffle ($evt) {
-    $evt.preventDefault()
+  handleShuffle () {
     store.shuffleColors()
     this.syncData()
   }
 
-  handleSort ($evt) {
-    $evt.preventDefault()
+  handleSort () {
     store.sortColorsById()
     this.syncData()
   }
 
-  handleSwap ($evt, rows) {
-    $evt.preventDefault()
+  handleSwap (rows) {
     store.swapColors(rows)
     this.syncData()
   }
 
-  handleUpdateColor ($evt, id) {
-    $evt.preventDefault()
+  handleUpdateColor (id) {
     store.updateColor(id)
     this.syncData()
   }
 
-  handleDeleteColor ($evt, id) {
-    $evt.preventDefault()
+  handleDeleteColor (id) {
     store.deleteColor(id)
     this.syncData()
   }
 
-  handleClear ($evt) {
-    $evt.preventDefault()
+  handleClear () {
     store.clearColors()
     this.syncData()
   }

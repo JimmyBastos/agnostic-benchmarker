@@ -1,6 +1,11 @@
 import React from 'react'
 import Types from 'prop-types'
 
+function _prevent ($evt) {
+  $evt.preventDefault()
+  $evt.stopPropagation()
+}
+
 const Template = (props) => {
   const {
     colors,
@@ -42,9 +47,9 @@ const Template = (props) => {
       <td className='app-table-cell app-table-action'>
 
         <a
-          href='#button'
+          href='#update'
           className='button__update pure-button app-button app-table-label'
-          onClick={($evt) => handleUpdateColor($evt, id)}
+          onClick={($evt) =>{ handleUpdateColor(id); _prevent($evt) }}
         >
           {/* <!-- button icon --> */}
           <svg
@@ -62,9 +67,9 @@ const Template = (props) => {
 
       <td className='app-table-cell app-table-action'>
         <a
-          href='#button'
+          href='#delete'
           className='button__delete pure-button app-button app-table-label'
-          onClick={($evt) => handleDeleteColor($evt, id)}
+          onClick={($evt) => { handleDeleteColor(id); _prevent($evt) }}
         >
           {/* <!-- button icon --> */}
           <svg
@@ -111,7 +116,7 @@ const Template = (props) => {
                 id='button__populate'
                 className='pure-button app-button'
                 style={{ backgroundColor: 'DodgerBlue' }}
-                onClick={($evt) => handleAdd($evt, 100)}
+                onClick={() => handleAdd(100)}
               >Inserir 100 Itens</button>
             </div>
 
@@ -121,7 +126,7 @@ const Template = (props) => {
                 id='button__swap'
                 className='pure-button app-button'
                 style={{ backgroundColor: 'OrangeRed' }}
-                onClick={($evt) => handleSwap($evt, [0, colors.length - 1])}
+                onClick={() => handleSwap([0, colors.length - 1])}
               >Permutar 2 Itens</button>
             </div>
 
