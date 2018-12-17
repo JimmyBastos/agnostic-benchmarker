@@ -13,10 +13,10 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start:dev": "react-scripts start",
-    "build:prod": "react-scripts build",
-    "start:prod": "react-scripts build && http-server ./build",
-    "eject": "react-scripts eject"
+    "start:dev": "cross-env PORT=8080 react-scripts start",
+    "build:prod": "cross-env react-scripts build",
+    "start:prod": "cross-env react-scripts build && http-server ./build",
+    "eject": "cross-env react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,6 +28,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
     "eslint-plugin-import": "^2.14.0",
