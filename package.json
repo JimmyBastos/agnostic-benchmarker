@@ -12,24 +12,24 @@
     "build:prod": "tsc"
   },
   "devDependencies": {
-    "@types/node": "^10.12.9",
+    "@types/node": "^10.12.12",
     "@types/ramda": "^0.25.42",
     "@types/selenium-webdriver": "^3.0.13",
     "@types/yargs": "^12.0.1",
     "jStat": "^1.7.1",
-    "nodemon": "^1.18.6",
+    "nodemon": "^1.18.7",
     "rimraf": "^2.6.2",
-    "ts-loader": "^5.3.0",
+    "ts-loader": "^5.3.1",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.6",
-    "webpack": "^4.25.1",
+    "typescript": "^3.2.2",
+    "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "chrome-launcher": "0.10.5",
-    "chromedriver": "2.43.4",
-    "lighthouse": "3.2.1",
-    "ramda": "0.26.0",
+    "chromedriver": "^2.43.4",
+    "lighthouse": "^3.2.1",
+    "ramda": "^0.26.0",
     "selenium-webdriver": "4.0.0-alpha.1"
   }
 }
