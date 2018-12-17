@@ -25,7 +25,7 @@
               id='button__add'
               class='pure-button app-button'
               style='background-color: LimeGreen'
-              @click.prevent='add'
+              @click='add'
             >
               Inserir 1 Item
             </button>
@@ -37,7 +37,7 @@
               id='button__populate'
               class='pure-button app-button'
               style='background-color: DodgerBlue'
-              @click.prevent='add(100)'
+              @click='add(100)'
             >
               Inserir 100 Itens
             </button>
@@ -49,7 +49,7 @@
               id='button__swap'
               class='pure-button app-button'
               style='background-color: OrangeRed'
-              @click.prevent='swap([0, colors.length - 1])'
+              @click='swap([0, colors.length - 1])'
             >
               Permutar 2 Itens
             </button>
@@ -61,7 +61,7 @@
               id='button__shuffle'
               class='pure-button app-button'
               style='background-color: DarkViolet'
-              @click.prevent='shuffle'
+              @click='shuffle'
             >
               Embaralhar Lista
             </button>
@@ -73,7 +73,7 @@
               id='button__sort'
               class='pure-button app-button'
               style='background-color: FireBrick'
-              @click.prevent='sort'
+              @click='sort'
             >
               Ordernar Lista
             </button>
@@ -85,7 +85,7 @@
               id='button__clear'
               class='pure-button app-button'
               style='background-color: Crimson'
-              @click.prevent='clear'
+              @click='clear'
             >
               Limpar Lista
             </button>
