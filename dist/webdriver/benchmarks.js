@@ -73,7 +73,7 @@ const benchRemoveOne = new class extends Benchmark {
     run(driver) {
         return __awaiter(this, void 0, void 0, function* () {
             const text = yield webdriverAccess_1.getTextByXPath(driver, '//tbody/tr[1]/td[2]/span');
-            yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[4]/a.button_delete');
+            yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[4]/a.button__delete');
             yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT);
         });
     }
@@ -97,7 +97,7 @@ const benchUpdateOne = new class extends Benchmark {
     run(driver) {
         return __awaiter(this, void 0, void 0, function* () {
             const text = yield webdriverAccess_1.getTextByXPath(driver, '//tbody/tr[1]/td[2]/span');
-            yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update');
+            yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button__update');
             yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT);
         });
     }
@@ -143,7 +143,7 @@ const benchSwapRows = new class extends Benchmark {
         return __awaiter(this, void 0, void 0, function* () {
             const oneRowPath = `//tbody/tr[1]/td[1]`, anotherRowPath = `// tbody/tr[${TABLE_SIZE}]/td[1]`, oneRowText = yield webdriverAccess_1.getTextByXPath(driver, oneRowPath), anotherRowText = yield webdriverAccess_1.getTextByXPath(driver, anotherRowPath);
             yield webdriverAccess_1.clickElementById(driver, 'button__swap');
-            yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[999]/td[1]`, oneRowText, SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[100]/td[1]`, oneRowText, SHORT_TIMEOUT);
             yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT);
         });
     }
@@ -294,7 +294,7 @@ const benchUpdate5Memory = new class extends Benchmark {
         return __awaiter(this, void 0, void 0, function* () {
             for (let i = 0; i < 5; i++) {
                 const text = yield webdriverAccess_1.getTextByXPath(driver, '//tbody/tr[1]/td[2]/span');
-                yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update');
+                yield webdriverAccess_1.clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button__update');
                 yield webdriverAccess_1.testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT);
             }
         });
@@ -326,7 +326,7 @@ const benchPopulate5Memory = new class extends Benchmark {
 const benchPopulateClear5Memory = new class extends Benchmark {
     constructor() {
         super({
-            id: '24_run-clear-memory',
+            id: '24_populateclear5-memory',
             label: 'memória ao inserir e limpar 100 items (5 ciclos)',
             description: 'Uso de memória após inserir e limpar 100 registros na lista 5 vezes.',
             type: BenchmarkType.MEM,
@@ -409,18 +409,11 @@ const benchStartupTotalBytes = {
 };
 // const benchStartup = new BenchStartup()
 exports.benchmarks = [
-    benchStartup,
-    benchAddOne,
-    benchPopulate,
-    benchSuffle,
-    benchSort,
-    benchClearAll,
-    benchUpdateOne,
-    benchReadyMemory,
-    benchPopulateMemory,
-    benchUpdate5Memory,
-    benchPopulate5Memory,
-    benchPopulateClear5Memory,
+    // benchStartup,
+    // benchAddOne,
+    // benchUpdateOne, /* Paint calls > 2 */
+    // benchRemoveOne, /* Paint calls > 2 */
+    benchSwapRows,
 ];
 function fileName(framework, benchmark) {
     return `${framework.fullNameWithVersion}_${benchmark.id}.json`;
