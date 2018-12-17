@@ -115,7 +115,7 @@ const benchRemoveOne = new class extends Benchmark {
   public async run(driver: WebDriver) {
     const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
 
-    await clickElementByXPath(driver, '//tbody/tr[1]/td[4]/a.button_delete')
+    await clickElementByXPath(driver, '//tbody/tr[1]/td[4]/a.button__delete')
     await testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT)
   }
 }()
@@ -138,8 +138,7 @@ const benchUpdateOne = new class extends Benchmark {
 
   public async run(driver: WebDriver) {
     const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
-
-    await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update')
+    await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button__update')
     await testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT)
   }
 }()
@@ -193,7 +192,7 @@ const benchSwapRows = new class extends Benchmark {
 
     await clickElementById(driver, 'button__swap')
 
-    await testTextContains(driver, `//tbody/tr[999]/td[1]`, oneRowText, SHORT_TIMEOUT)
+    await testTextContains(driver, `//tbody/tr[100]/td[1]`, oneRowText, SHORT_TIMEOUT)
     await testTextContains(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT)
   }
 }()
@@ -341,7 +340,7 @@ const benchUpdate5Memory = new class extends Benchmark {
   async run(driver: WebDriver) {
     for (let i = 0; i < 5; i++) {
       const text = await getTextByXPath(driver, '//tbody/tr[1]/td[2]/span')
-      await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button_update')
+      await clickElementByXPath(driver, '//tbody/tr[1]/td[3]/a.button__update')
       await testTextNotContained(driver, '//tbody/tr[1]/td[2]/span', text, SHORT_TIMEOUT)
     }
   }
@@ -461,11 +460,13 @@ const benchStartupTotalBytes: IStartupBenchmarkResult = {
 export let benchmarks: Benchmark[] = [
   benchStartup,
   benchAddOne,
+  benchUpdateOne, /* Paint calls > 2 */
+  benchRemoveOne, /* Paint calls > 2 */
+  benchSwapRows,
   benchPopulate,
   benchSuffle,
   benchSort,
   benchClearAll,
-  benchUpdateOne,
   benchReadyMemory,
   benchPopulateMemory,
   benchUpdate5Memory,
