@@ -6,10 +6,15 @@
     "frameworkVersionFromPackage": "vue"
   },
   "scripts": {
-    "start:dev": "vue-cli-service serve",
-    "start:prod": "npm run build:prod && http-server ./dist",
-    "build:prod": "vue-cli-service build"
+    "start:dev": "cross-env vue-cli-service serve",
+    "start:prod": "cross-env yarn build:prod && http-server ./dist",
+    "build:prod": "cross-env vue-cli-service build"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
     "lodash": "^4.17.11",
     "pure-css": "^1.0.4",
@@ -21,6 +26,7 @@
     "@vue/cli-service": "^3.1.1",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "http-server": "^0.11.1",
