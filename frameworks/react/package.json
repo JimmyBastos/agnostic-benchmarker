@@ -1,19 +1,21 @@
 {
-  "name": "react-app",
+  "name": "react-benchmark",
   "version": "0.1.0",
   "private": true,
+  "framework-metadata": {
+    "frameworkVersionFromPackage": "react"
+  },
   "dependencies": {
     "lodash": "^4.17.11",
-    "node-sass": "^4.11.0",
     "pure-css": "^1.0.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start:dev": "react-scripts start",
+    "build:prod": "react-scripts build",
+    "start:prod": "react-scripts build && http-server ./build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -26,13 +28,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint": "^5.10.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "http-server": "^0.11.1",
+    "node-sass": "^4.11.0"
   }
 }

@@ -1,0 +1,41 @@
+{
+  // Path intelisense Aliases
+  "path-intellisense.mappings": {
+    "@": "${workspaceRoot}/src",
+    "~": "${workspaceRoot}/src",
+  },
+  // Include Emmet Snippets
+  "emmet.includeLanguages": {
+    "javascript": "html"
+  },
+  //Disable Editor Formatter
+  "javascript.format.enable": false,
+  //Disable Vetur Formatter
+  "vetur.format.defaultFormatter.js": "none",
+  "vetur.format.defaultFormatter.html": "none",
+  "eslint.enable": true, //Enable Eslint
+  //List of file extensions to activate eslint
+  "eslint.options": {
+    "extensions": [
+      ".html",
+      ".js",
+      ".jsx"
+    ]
+  },
+  "eslint.validate": [
+    //list of extensions to validate
+    {
+      "language": "html",
+      "AutoFix": true //Autofix any fixable errors when linting
+    },
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    }
+  ],
+  "eslint.autoFixOnSave": true
+}
