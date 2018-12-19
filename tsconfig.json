@@ -30,7 +30,7 @@
     "./src/webdriver/common.ts",
     "./src/webdriver/forkedBenchmarkRunner.ts",
     "./src/webdriver/lighthouseConfig.ts",
-    "./src/webdriver/webdriverAccess.ts",
+    "./src/webdriver/webdriverAccess.ts"
   ],
   "exclude": [
     "node_modules",
