@@ -11,7 +11,7 @@
       <div class='app-container app-menu pure-menu pure-menu-horizontal'>
         <!-- BRAND: framework@version -->
         <span class='app-menu-heading pure-menu-heading app-title'>
-          Vue@2.5.17
+          Vue
         </span>
       </div>
 

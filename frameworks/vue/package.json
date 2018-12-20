@@ -1,13 +1,14 @@
 {
   "name": "vue-bechmark",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "framework-metadata": {
     "frameworkVersionFromPackage": "vue"
   },
   "scripts": {
     "start:dev": "cross-env vue-cli-service serve",
-    "start:prod": "cross-env yarn build:prod && http-server ./dist",
+    "start:server": "cross-env http-server ./dist",
+    "start:prod": "cross-env npm run build:prod && npm run build:server",
     "build:prod": "cross-env vue-cli-service build"
   },
   "browserslist": [
