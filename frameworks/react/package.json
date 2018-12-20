@@ -1,6 +1,6 @@
 {
   "name": "react-benchmark",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "framework-metadata": {
     "frameworkVersionFromPackage": "react"
@@ -14,8 +14,9 @@
   },
   "scripts": {
     "start:dev": "cross-env PORT=8080 react-scripts start",
+    "start:server": "cross-env http-server ./build",
+    "start:prod": "cross-env npm run build:prod && npm run build:server",
     "build:prod": "cross-env react-scripts build",
-    "start:prod": "cross-env react-scripts build && http-server ./build",
     "eject": "cross-env react-scripts eject"
   },
   "eslintConfig": {

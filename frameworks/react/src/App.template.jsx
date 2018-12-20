@@ -92,7 +92,7 @@ const Template = (props) => {
         <div className='app-container app-menu pure-menu pure-menu-horizontal'>
           {/* <!-- BRAND: framework@version --> */}
           <span className='app-menu-heading pure-menu-heading app-title'>
-            React@16.6.3
+            React
           </span>
         </div>
 
