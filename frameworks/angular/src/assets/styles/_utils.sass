@@ -1,0 +1,31 @@
+%shadow-lg
+  box-shadow: 0 15px 30px 0 rgba(0,0,0,.11), 0 5px 15px 0 rgba(0,0,0,.08)
+
+.app-u-sticky
+  position: sticky
+
+.app-u-fixed
+  position: fixed
+
+.app-u-pin
+  &-t
+    top: 0
+  &-r
+    right: 0
+  &-b
+    bottom: 0
+  &-l
+    left: 0
+
+.app-u-shadow-lg
+  @extend %shadow-lg
+
+.app-u-align-middle
+  vertical-align: middle
+
+.app-u-table
+  display: table
+  width: 100%
+  height: 100%
+  &-cell
+    display: table-cell
