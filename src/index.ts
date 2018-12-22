@@ -94,9 +94,10 @@ async function runBench(frameworkNames: string[], benchmarkNames: string[], outp
 }
 
 const args = yargs(process.argv)
-  .usage('$0 [--framework Framework1 Framework2 ...] [--benchmark Benchmark1 Benchmark2 ...] [--count n] [--exitOnError]')
+  .usage('$0 [--framework Framework1 Framework2 ...] [--benchmark Benchmark1 Benchmark2 ...] [--count n] [--androidBench] [--exitOnError]')
   .help('help')
   .default('check', 'false')
+  .default('androidBench', 'false')
   .default('fork', 'true')
   .default('exitOnError', 'false')
   .default('count', config.REPEAT_RUN)
@@ -104,7 +105,9 @@ const args = yargs(process.argv)
   .string('chromeBinary')
   .string('chromeDriver')
   .boolean('headless')
-  .array('framework').array('benchmark').argv
+  .array('framework')
+  .array('benchmark')
+  .argv
 
 console.log(args)
 
@@ -114,6 +117,7 @@ const count = Number(args.count)
 config.PORT = Number(args.port)
 config.REPEAT_RUN = count
 config.FORK_CHROMEDRIVER = args.fork === 'true'
+config.RUN_ON_ANDROID_ADB = args.androidBench === 'true'
 
 const dir = args.check === 'true' ? 'results_check' : 'results'
 const exitOnError = args.exitOnError === 'true'

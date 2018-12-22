@@ -110,14 +110,14 @@ const Template = (props) => {
               >Inserir 1 Item</button>
             </div>
 
-            {/* <!-- LOAD 100 COLORS --> */}
+            {/* <!-- LOAD 50 COLORS --> */}
             <div className='pure-u-12-24 pure-u-md-8-24 pure-u-xl-4-24'>
               <button
                 id='button__populate'
                 className='pure-button app-button'
                 style={{ backgroundColor: 'DodgerBlue' }}
-                onClick={() => handleAdd(100)}
-              >Inserir 100 Itens</button>
+                onClick={() => handleAdd(50)}
+              >Inserir 50 Itens</button>
             </div>
 
             {/* <!-- SWAP 2 ROWS --> */}

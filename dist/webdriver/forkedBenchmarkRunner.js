@@ -181,7 +181,7 @@ function runLighthouse(framework, benchmarkOptions) {
             }
             const chromeInstance = yield chromeLauncher.launch(options);
             opts.port = chromeInstance.port;
-            const results = yield lighthouse(`http://localhost:${benchmarkOptions.port}/`, opts, null);
+            const results = yield lighthouse(`http://192.168.1.100:${benchmarkOptions.port}/`, opts, null);
             yield chromeInstance.kill();
             const LighthouseData = {
                 TimeToConsistentlyInteractive: extractRawValue(results.lhr, 'interactive'),
@@ -302,23 +302,28 @@ function buildDriver(benchmarkOptions) {
     logPref.setLevel(selenium_webdriver_1.logging.Type.PERFORMANCE, selenium_webdriver_1.logging.Level.ALL);
     logPref.setLevel(selenium_webdriver_1.logging.Type.BROWSER, selenium_webdriver_1.logging.Level.ALL);
     let options = new chrome.Options();
-    if (benchmarkOptions.headless) {
-        options = options.addArguments('--headless');
-        options = options.addArguments('--disable-gpu'); // https://bugs.chromium.org/p/chromium/issues/detail?id=737678
+    if (common_1.config.RUN_ON_ANDROID_ADB) {
+        options = options.androidPackage('com.android.chrome');
     }
-    options = options.addArguments('--js-flags=--expose-gc');
-    options = options.addArguments('--no-sandbox');
-    options = options.addArguments('--no-first-run');
-    options = options.addArguments('--enable-automation');
-    options = options.addArguments('--disable-infobars');
-    options = options.addArguments('--disable-background-networking');
-    options = options.addArguments('--disable-background-timer-throttling');
-    options = options.addArguments('--disable-cache');
-    options = options.addArguments('--disable-translate');
-    options = options.addArguments('--disable-sync');
-    options = options.addArguments('--disable-extensions');
-    options = options.addArguments('--disable-default-apps');
-    options = options.addArguments('--window-size=1200,800');
+    let chromeArgs = [
+        '--js-flags=--expose-gc',
+        '--no-sandbox',
+        '--no-first-run',
+        '--enable-automation',
+        '--disable-infobars',
+        '--disable-background-networking',
+        '--disable-background-timer-throttling',
+        '--disable-cache',
+        '--disable-translate',
+        '--disable-sync',
+        '--disable-extensions',
+        '--disable-default-apps',
+        '--window-size=1200,800',
+    ];
+    if (benchmarkOptions.headless) {
+        chromeArgs.push('--headless', '--disable-gpu'); // https://bugs.chromium.org/p/chromium/issues/detail?id=737678
+    }
+    options = chromeArgs.reduce((options, arg) => options.addArguments(arg), options);
     if (benchmarkOptions.chromeBinaryPath) {
         options = options.setChromeBinaryPath(benchmarkOptions.chromeBinaryPath);
     }
@@ -449,7 +454,7 @@ function runMemOrCPUBenchmark(framework, benchmark, benchmarkOptions) {
             for (let i = 0; i < benchmarkOptions.numIterationsForAllBenchmarks; i++) {
                 try {
                     webdriverAccess_1.setUseShadowRoot(framework.useShadowRoot);
-                    yield driver.get(`http://localhost:${benchmarkOptions.port}/`);
+                    yield driver.get(`http://192.168.1.100:${benchmarkOptions.port}/`);
                     // await (driver as any).sendDevToolsCommand('Network.enable');
                     // await (driver as any).sendDevToolsCommand('Network.emulateNetworkConditions', {
                     //     offline: false,

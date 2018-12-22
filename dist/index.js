@@ -101,9 +101,10 @@ function runBench(frameworkNames, benchmarkNames, outputDir) {
     });
 }
 const args = yargs(process.argv)
-    .usage('$0 [--framework Framework1 Framework2 ...] [--benchmark Benchmark1 Benchmark2 ...] [--count n] [--exitOnError]')
+    .usage('$0 [--framework Framework1 Framework2 ...] [--benchmark Benchmark1 Benchmark2 ...] [--count n] [--androidBench] [--exitOnError]')
     .help('help')
     .default('check', 'false')
+    .default('androidBench', 'false')
     .default('fork', 'true')
     .default('exitOnError', 'false')
     .default('count', common_1.config.REPEAT_RUN)
@@ -111,7 +112,9 @@ const args = yargs(process.argv)
     .string('chromeBinary')
     .string('chromeDriver')
     .boolean('headless')
-    .array('framework').array('benchmark').argv;
+    .array('framework')
+    .array('benchmark')
+    .argv;
 console.log(args);
 const runBenchmarks = args.benchmark && args.benchmark.length > 0 ? args.benchmark : [''];
 const runFrameworks = args.framework && args.framework.length > 0 ? args.framework : [''];
@@ -119,6 +122,7 @@ const count = Number(args.count);
 common_1.config.PORT = Number(args.port);
 common_1.config.REPEAT_RUN = count;
 common_1.config.FORK_CHROMEDRIVER = args.fork === 'true';
+common_1.config.RUN_ON_ANDROID_ADB = args.androidBench === 'true';
 const dir = args.check === 'true' ? 'results_check' : 'results';
 const exitOnError = args.exitOnError === 'true';
 common_1.config.EXIT_ON_ERROR = exitOnError;

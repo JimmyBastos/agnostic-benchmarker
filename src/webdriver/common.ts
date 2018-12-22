@@ -20,6 +20,7 @@ export let config = {
   STARTUP_DURATION_FROM_EVENTLOG: true,
   STARTUP_SLEEP_DURATION: 1000,
   FORK_CHROMEDRIVER: true,
+  RUN_ON_ANDROID_ADB: false,
 }
 
 export interface IJSONResult {
@@ -212,18 +213,11 @@ export function initializeFrameworks(matchPredicate: IMatchPredicate = matchAll)
     }
   })
 
-  // result = frameworks.filter((fd) => isFrameworkData(fd))
-
-  frameworks.forEach((fd) => {
-    /* only to prevent transpiling errors */
-    if (isFrameworkData(fd)) { result.push(fd) }
-  })
+  frameworks.forEach((fd) => { if (isFrameworkData(fd)) result.push(fd) })
 
   if (config.LOG_DETAILS) {
-    (
-      console.log('All available frameworks: '),
-      console.log(result.map((fd) => fd.fullNameWithVersion))
-    )
+    console.log('All available frameworks: ')
+    console.log(result.map((fd) => fd.fullNameWithVersion))
   }
 
   return result

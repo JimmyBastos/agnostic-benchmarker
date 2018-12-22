@@ -31,15 +31,15 @@
             </button>
           </div>
 
-          <!-- LOAD 100 COLORS -->
+          <!-- LOAD 50 COLORS -->
           <div class='pure-u-12-24 pure-u-md-8-24 pure-u-xl-4-24'>
             <button
               id='button__populate'
               class='pure-button app-button'
               style='background-color: DodgerBlue'
-              @click='add(100)'
+              @click='add(50)'
             >
-              Inserir 100 Itens
+              Inserir 50 Itens
             </button>
           </div>
 

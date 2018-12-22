@@ -14,10 +14,11 @@
   },
   "scripts": {
     "start:dev": "cross-env PORT=8080 react-scripts start",
-    "start:server": "cross-env http-server ./build",
+    "start:server": "cross-env http-server ./dist",
     "start:prod": "cross-env npm run build:prod && npm run build:server",
     "build:prod": "cross-env react-scripts build",
-    "eject": "cross-env react-scripts eject"
+    "eject": "cross-env react-scripts eject",
+    "postbuild:prod": "cross-env rm -rf dist && mv build dist"
   },
   "eslintConfig": {
     "extends": "react-app"
