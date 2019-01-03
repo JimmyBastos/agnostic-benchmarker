@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+
 import { Store } from '../store';
 const store = new Store();
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AppComponent {
   title = 'angular-benchmark';
   colors = Object.freeze(store.colors);
   amount = 100;
+
+  trackById(index, item) {
+    return item.id;
+  }
 
   prevent($evt) {
     $evt.stopPropagation();

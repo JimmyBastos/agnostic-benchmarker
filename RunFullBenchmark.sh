@@ -57,7 +57,7 @@ Main () {
   for framework in  $FRAMEWORKS_DIR/*; do
     # FnClearDependencies   $framework
     # FnInstallDependencies $framework
-    FnConstructBuild      $framework
+    # FnConstructBuild      $framework
     FnRunHTTPServer       $framework
     FnRunBenchmark        $(basename $framework)
   done

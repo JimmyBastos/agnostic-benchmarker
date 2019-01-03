@@ -13,16 +13,15 @@ const randomColor = (lower: number = 0, upper: number = 255): string =>
 let _currentIndex = 0;
 
 class Color {
-  id: number;
-  color: string;
-  constructor(id: number, color: string){
-    this.id = id;
-    this.color= color;
-  }
+  constructor(public id: number, public color: string) { }
 }
 
-function generateAmountOfColors(amount: number = 1, startIndex:number = _currentIndex): Array<Color> {
-  return Array(amount).fill(null).map((_, i) => new Color(startIndex + (++i), randomColor()));
+function generateAmountOfColors(amount: number = 1, startIdx: number = _currentIndex): Array<Color> {
+  return Array(amount)
+    .fill(null)
+    .map((_, i) =>
+      new Color(startIdx + (++i), randomColor())
+    );
 }
 
 export class Store {

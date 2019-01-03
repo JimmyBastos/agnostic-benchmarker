@@ -64,8 +64,8 @@
     <table class='app-table'>
       <tbody class='app-table-body'>
         <!-- COLOR -->
-        <tr *ngFor='let color of colors' :key='`table-row-${coilor.id}-${color.color}`' [style.background-color]='color.color'
-          class='app-table-row'>
+        <tr *ngFor='let color of colors; trackBy: trackById' :key='`table-row-${coilor.id}-${color.color}`'
+          [style.background-color]='color.color' class='app-table-row'>
           <!-- COLOR ID -->
           <td class='app-table-id'>
             <span class='app-table-label' style='padding: 6px'>

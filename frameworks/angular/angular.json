@@ -28,7 +28,9 @@
             ],
             "styles": [
               "src/assets/styles/main.sass",
-              "node_modules/pure-css"
+              "node_modules/pure-css/lib/base.css",
+              "node_modules/pure-css/lib/buttons.css",
+              "node_modules/pure-css/lib/grids.css"
             ],
             "scripts": []
           },

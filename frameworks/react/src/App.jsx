@@ -4,7 +4,6 @@ import './App.style.sass'
 import Template from './App.template.jsx'
 
 import { Store } from './store.js'
-import { cpus } from 'os';
 const store = new Store()
 
 class App extends Component {
