@@ -15,6 +15,8 @@ import {
   testElementNotLocatedByXPath,
   testTextContains,
   testTextNotContained,
+  testTextEqual,
+  testTextNotEqual,
 } from './webdriverAccess'
 
 export enum BenchmarkType {
@@ -195,8 +197,8 @@ const benchSwapTwoRows = new class extends Benchmark {
 
     await clickElementById(driver, 'button__swap')
 
-    await testTextContains(driver, `//tbody/tr[50]/td[1]`, oneRowText, SHORT_TIMEOUT)
-    await testTextContains(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT)
+    await testTextEqual(driver, `//tbody/tr[50]/td[1]`, oneRowText, SHORT_TIMEOUT)
+    await testTextEqual(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT)
   }
 }()
 
@@ -219,7 +221,7 @@ const benchSuffle = new class extends Benchmark {
   public async run(driver: WebDriver) {
     const randomItem = Math.floor((Math.random() * TABLE_SIZE) + 1)
     await clickElementById(driver, 'button__shuffle')
-    await testTextNotContained(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT)
+    await testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT)
   }
 }()
 
@@ -244,13 +246,13 @@ const benchSort = new class extends Benchmark {
     // shuffle table
     await testElementLocatedById(driver, 'button__shuffle', SHORT_TIMEOUT)
     await clickElementById(driver, 'button__shuffle')
-    await testTextNotContained(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT)
+    await testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT)
   }
 
   public async run(driver: WebDriver) {
     await clickElementById(driver, 'button__sort')
-    await testTextContains(driver, `//tbody/tr[1]/td[1]`, '1', SHORT_TIMEOUT)
-    await testTextContains(driver, `//tbody/tr[50]/td[1]`, '50', SHORT_TIMEOUT)
+    await testTextEqual(driver, `//tbody/tr[1]/td[1]`, '1', SHORT_TIMEOUT)
+    await testTextEqual(driver, `//tbody/tr[50]/td[1]`, '50', SHORT_TIMEOUT)
   }
 }()
 
@@ -446,10 +448,9 @@ const benchSuffleMemory = new class extends Benchmark {
   }
 
   public async run(driver: WebDriver) {
-    const row = Math.floor((Math.random() * TABLE_SIZE) + 1)
-    const text = row.toString()
+    const randomItem = Math.floor((Math.random() * TABLE_SIZE) + 1)
     await clickElementById(driver, 'button__shuffle')
-    await testTextNotContained(driver, `//tbody/tr[${row}]/td[1]`, text, SHORT_TIMEOUT)
+    await testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT)
   }
 }()
 
@@ -464,8 +465,8 @@ const benchSortMemory = new class extends Benchmark {
   }
 
   public async init(driver: WebDriver) {
-    const row = Math.floor((Math.random() * TABLE_SIZE) + 1)
-    const text = row.toString()
+    const randomItem = Math.floor((Math.random() * TABLE_SIZE) + 1)
+
     // populate table
     await testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT)
     await clickElementById(driver, 'button__populate')
@@ -474,13 +475,13 @@ const benchSortMemory = new class extends Benchmark {
     // shuffle table
     await testElementLocatedById(driver, 'button__shuffle', SHORT_TIMEOUT)
     await clickElementById(driver, 'button__shuffle')
-    await testTextNotContained(driver, `//tbody/tr[${row}]/td[1]`, text, SHORT_TIMEOUT)
+    await testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT)
   }
 
   public async run(driver: WebDriver) {
     await clickElementById(driver, 'button__sort')
-    await testTextContains(driver, `//tbody/tr[1]/td[1]`, '1', SHORT_TIMEOUT)
-    await testTextContains(driver, `//tbody/tr[50]/td[1]`, '50', SHORT_TIMEOUT)
+    await testTextEqual(driver, `//tbody/tr[1]/td[1]`, '1', SHORT_TIMEOUT)
+    await testTextEqual(driver, `//tbody/tr[50]/td[1]`, '50', SHORT_TIMEOUT)
   }
 }()
 
@@ -577,15 +578,14 @@ const benchStartupTotalBytes: IStartupBenchmarkResult = {
 
 export let benchmarks: Benchmark[] = [
   // benchStartup,
-  // benchAddOne,
-  // benchUpdateOne, /* Paint calls > 2 */
-  // benchRemoveOne, /* Paint calls > 2 */
+  benchAddOne,
+  benchUpdateOne, /* Paint calls > 2 */
+  benchRemoveOne, /* Paint calls > 2 */
   // benchSwapTwoRows,
   // benchPopulate,
   // benchSuffle,
   // benchSort,
   // benchClearAll,
-
   // benchReadyMemory,
   // benchAddOne5Memory,
   // benchUpdateOne5Memory,
@@ -594,7 +594,7 @@ export let benchmarks: Benchmark[] = [
   // benchPopulateMemory,
   // benchSuffleMemory,
   // benchSortMemory,
-  benchClearMemory
+  // benchClearMemory
 ]
 
 export function fileName(framework: IFrameworkData, benchmark: IBenchmarkInfo) {

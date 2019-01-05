@@ -105,6 +105,38 @@ export function testTextNotContained(driver: WebDriver, xpath: string, text: str
     }, timeout)
 }
 
+export async function testTextEqual(driver: WebDriver, xpath: string, text: string, timeout = config.TIMEOUT) {
+  return waitForCondition(driver)(`testTextContains ${xpath} ${text}`,
+    async (webDriver) => {
+      try {
+        let elem = await shadowRoot(webDriver)
+        elem = await findByXPath(elem, xpath)
+        if (elem == null) { return false }
+        const value = await elem.getText()
+        return !!value && (value === text)
+      } catch (err) {
+        skipError('testTextEqual', err, xpath, `text = ${text}`)
+        return false
+      }
+    }, timeout)
+}
+
+export function testTextNotEqual(driver: WebDriver, xpath: string, text: string, timeout = config.TIMEOUT) {
+  return waitForCondition(driver)(`testTextNotEqual ${xpath} ${text}`,
+    async (webDriver) => {
+      try {
+        let elem = await shadowRoot(webDriver)
+        elem = await findByXPath(elem, xpath)
+        if (elem == null) { return false }
+        const value = await elem.getText()
+        return !!value && (value !== text)
+      } catch (err) {
+        skipError('testTextNotEqual', err, xpath, `text = ${text}`)
+        return false
+      }
+    }, timeout)
+}
+
 export function testClassContains(driver: WebDriver, xpath: string, text: string, timeout = config.TIMEOUT) {
   return waitForCondition(driver)(`testClassContains ${xpath} ${text}`,
     async (webDriver) => {
