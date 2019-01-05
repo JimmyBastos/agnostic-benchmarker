@@ -16,18 +16,20 @@
     "start:dev": "cross-env PORT=8080 react-scripts start",
     "start:server": "cross-env http-server ./dist",
     "start:prod": "cross-env npm run build:prod && npm run build:server",
-    "build:prod": "cross-env react-scripts build",
+    "build:prod": "cross-env react-scripts build --stats",
     "eject": "cross-env react-scripts eject",
+    "analize": "cross-env npm run build:prod && webpack-bundle-analyzer ./dist/bundle-stats.json",
     "postbuild:prod": "cross-env rm -rf dist && mv build dist"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": [
-    ">0.2%",
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
     "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+    "not IE 9-11"
   ],
   "devDependencies": {
     "cross-env": "^5.2.0",
