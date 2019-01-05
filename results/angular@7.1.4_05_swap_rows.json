@@ -1,0 +1,1 @@
+{"framework":"angular@7.1.4","benchmark":"05_swap_rows","type":"cpu","min":73.111,"max":91.972,"mean":82.8674,"median":83.2995,"geometricMean":82.69797009131324,"standardDeviation":5.5578619030462875,"values":[82.062,79.432,84.537,73.111,86.498,88.133,80.774,85.139,91.972,77.016]}

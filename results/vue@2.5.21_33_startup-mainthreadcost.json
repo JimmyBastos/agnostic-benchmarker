@@ -1,0 +1,1 @@
+{"framework":"vue@2.5.21","benchmark":"33_startup-mainthreadcost","type":"startup","min":466.25600000000003,"max":478.4119999999999,"mean":474.181,"median":476.028,"geometricMean":474.15706844610156,"standardDeviation":5.483946389234636,"values":[474.868,466.25600000000003,478.4119999999999,477.188]}

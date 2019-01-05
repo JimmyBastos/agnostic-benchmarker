@@ -1,0 +1,1 @@
+{"framework":"angular@7.1.4","benchmark":"31_startup-ci","type":"startup","min":2741.2200000000003,"max":2780.3765000000003,"mean":2761.847875,"median":2762.8975,"geometricMean":2761.800359724008,"standardDeviation":18.70343461049779,"values":[2780.3765000000003,2751.0985,2741.2200000000003,2774.6965]}

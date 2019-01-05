@@ -1,0 +1,1 @@
+{"framework":"react@16.7.0","benchmark":"32_startup-bt","type":"startup","min":142.724,"max":189.14800000000002,"mean":156.03500000000003,"median":146.13400000000001,"geometricMean":154.95289316073203,"standardDeviation":22.135670489054554,"values":[146.488,145.78,142.724,189.14800000000002]}

@@ -1,0 +1,1 @@
+{"framework":"angular@7.1.4","benchmark":"33_startup-mainthreadcost","type":"startup","min":692.5319999999999,"max":745.792,"mean":715.987,"median":712.8119999999999,"geometricMean":715.7334602502872,"standardDeviation":22.09064124616279,"values":[714.448,692.5319999999999,711.1759999999999,745.792]}

@@ -1,0 +1,1 @@
+{"framework":"react@16.7.0","benchmark":"33_startup-mainthreadcost","type":"startup","min":383.168,"max":461.61600000000016,"mean":414.461,"median":406.53,"geometricMean":413.43051157192644,"standardDeviation":34.23059705390299,"values":[416.188,396.87199999999996,383.168,461.61600000000016]}
