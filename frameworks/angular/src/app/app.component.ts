@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 
-import { Store } from '../store';
+import { Store, Color } from '../store';
+
 const store = new Store();
 
 @Component({
@@ -18,16 +19,16 @@ export class AppComponent {
   colors = Object.freeze(store.colors);
   amount = 100;
 
-  trackById(index, item) {
+  trackById(index: number, item: Color): number {
     return item.id;
   }
 
-  prevent($evt) {
+  prevent($evt: Event) {
     $evt.stopPropagation();
     $evt.preventDefault();
   }
 
-  add(amount = 1) {
+  add(amount: number = 1) {
     store.appendColors(amount);
     this.syncData();
   }
@@ -42,17 +43,17 @@ export class AppComponent {
     this.syncData();
   }
 
-  swap(rows) {
+  swap(rows: [number, number]) {
     store.swapColors(rows);
     this.syncData();
   }
 
-  updateColor(id) {
+  updateColor(id: number) {
     store.updateColor(id);
     this.syncData();
   }
 
-  deleteColor(id) {
+  deleteColor(id: number) {
     store.deleteColor(id);
     this.syncData();
   }

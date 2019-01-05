@@ -1,5 +1,5 @@
-import { random as _random, shuffle as _shuffle } from 'lodash';
-// import _shuffle from 'lodash/shuffle';
+import _shuffle from 'lodash/shuffle';
+import _random from 'lodash/random';
 
 const rgbColorFactory = (red: number, green: number, blue: number): string => `rgb(${red}, ${green}, ${blue})`;
 
@@ -12,9 +12,7 @@ const randomColor = (lower: number = 0, upper: number = 255): string =>
 
 let _currentIndex = 0;
 
-class Color {
-  constructor(public id: number, public color: string) { }
-}
+export class Color { constructor(public id: number, public color: string) { } }
 
 function generateAmountOfColors(amount: number = 1, startIdx: number = _currentIndex): Array<Color> {
   return Array(amount)
@@ -57,7 +55,7 @@ export class Store {
     this.colors = [...this.colors].sort((next, curr) => (next.id - curr.id));
   }
 
-  swapColors([idxOne, idxTwo]) {
+  swapColors([idxOne, idxTwo]: [number, number]) {
     const size = this.colors.length;
     if (size > idxOne && size > idxTwo) {
       const newColorOne = this.colors[idxTwo];

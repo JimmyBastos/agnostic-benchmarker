@@ -23,14 +23,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/favicon.ico"
             ],
             "styles": [
-              "src/assets/styles/main.sass",
               "node_modules/pure-css/lib/base.css",
               "node_modules/pure-css/lib/buttons.css",
-              "node_modules/pure-css/lib/grids.css"
+              "node_modules/pure-css/lib/grids.css",
+              "src/assets/styles/main.sass"
             ],
             "scripts": []
           },
@@ -93,5 +92,10 @@
       }
     }
   },
-  "defaultProject": "angular-benchmark"
+  "defaultProject": "angular-benchmark",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "sass"
+    }
+  }
 }

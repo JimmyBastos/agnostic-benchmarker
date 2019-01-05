@@ -9,8 +9,9 @@
     "ng": "cross-env ng",
     "start:dev": "cross-env ng serve --host 0.0.0.0 --port 8080",
     "start:server": "cross-env http-server ./dist",
-    "start:prod": "cross-env npm run build:prod && npm run build:server",
-    "build:prod": "cross-env ng build",
+    "start:prod": "cross-env npm run build:prod && npm run start:server",
+    "build:prod": "cross-env ng build --prod --stats-json",
+    "analize": "cross-env npm run build:prod && webpack-bundle-analyzer ./dist/stats.json",
     "lint": "cross-env ng lint"
   },
   "browserslist": [
