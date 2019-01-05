@@ -9,12 +9,15 @@
     "start:dev": "cross-env vue-cli-service serve",
     "start:server": "cross-env http-server ./dist",
     "start:prod": "cross-env npm run build:prod && npm run build:server",
-    "build:prod": "cross-env vue-cli-service build"
+    "build:prod": "cross-env vue-cli-service build --report-json --mode production",
+    "analize": "cross-env npm run build:prod && webpack-bundle-analyzer ./dist/report.json"
   },
   "browserslist": [
-    "> 1%",
+    "> 0.5%",
     "last 2 versions",
-    "not ie <= 8"
+    "Firefox ESR",
+    "not dead",
+    "not IE 9-11"
   ],
   "dependencies": {
     "lodash": "^4.17.11",
