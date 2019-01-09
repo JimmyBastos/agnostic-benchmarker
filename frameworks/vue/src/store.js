@@ -1,4 +1,4 @@
-import _random  from 'lodash/random'
+import _random from 'lodash/random'
 import _shuffle from 'lodash/shuffle'
 
 const rgbColorFactory = (red, green, blue) => `rgb(${red}, ${green}, ${blue})`
@@ -55,7 +55,9 @@ export class Store {
     if (size > idxOne && size > idxTwo) {
       const newColorOne = this.colors[idxTwo]
       const newColorTwo = this.colors[idxOne]
-      const newColors = this.colors.map((clr, idx) => (idx === idxOne) ? (newColorOne) : (idx === idxTwo ? newColorTwo : clr))
+      const newColors = [...this.colors]
+      newColors[idxOne] = newColorOne
+      newColors[idxTwo] = newColorTwo
       this.colors = newColors
     }
   }
@@ -73,7 +75,9 @@ export class Store {
 
   updateColor (colorID) {
     const idx = this.colors.findIndex(clr => clr.id === +colorID)
-    let newColors = [ ...this.colors ]; newColors[idx] = { ...newColors[idx], color: randomColor() }
+
+    let newColors = [...this.colors]
+    newColors[idx] = { ...newColors[idx], color: randomColor() }
     this.colors = newColors
   }
 
