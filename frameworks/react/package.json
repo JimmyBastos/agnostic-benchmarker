@@ -15,11 +15,11 @@
   "scripts": {
     "start:dev": "cross-env PORT=8080 react-scripts start",
     "start:server": "cross-env http-server ./dist",
-    "start:prod": "cross-env npm run build:prod && npm run build:server",
+    "start:prod": "cross-env npm run build:prod && npm run start:server",
     "build:prod": "cross-env react-scripts build --stats",
     "eject": "cross-env react-scripts eject",
     "analize": "cross-env npm run build:prod && webpack-bundle-analyzer ./dist/bundle-stats.json",
-    "postbuild:prod": "cross-env rm -rf dist && mv build dist"
+    "postbuild:prod": "cross-env rm -rf dist && mv build dist && postcss ./dist/**/*.css --replace"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,6 +32,7 @@
     "not IE 9-11"
   ],
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^1.1.0",
     "cross-env": "^5.2.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
@@ -40,7 +41,10 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
+    "glob-all": "^3.1.0",
     "http-server": "^0.11.1",
-    "node-sass": "^4.11.0"
+    "node-sass": "^4.11.0",
+    "postcss-cli": "^6.1.1",
+    "purgecss-webpack-plugin": "^1.4.0"
   }
 }

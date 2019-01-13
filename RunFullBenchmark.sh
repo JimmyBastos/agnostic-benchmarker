@@ -6,15 +6,23 @@
 
 BASE_DIR=$(pwd)
 FRAMEWORKS_DIR="$BASE_DIR/frameworks"
+RESULTS_DIR="$BASE_DIR/results"
+
+
+####################
+# GLOBALS
+####################
+
+SERVER_PID=0
 
 ####################
 # METHODS
 ####################
 
 FnLog() {
-  echo "------------------------------------------------------------------------------------------------------------------"
+  echo "----------------------------------------------------------"
   echo "[LOG] $1"
-  echo "------------------------------------------------------------------------------------------------------------------"
+  echo "----------------------------------------------------------"
 }
 
 FnClearDependencies () {
@@ -39,14 +47,15 @@ FnConstructBuild () {
 FnRunHTTPServer () {
     FnLog "Running HTTP server for $(basename $1) app"
     cd $1
-    npm run start:server -- --gzip &
+    npm run start:server -- --gzip > /dev/null &
+    SERVER_PID="$!"
     cd $BASE_DIR
 }
 
 FnRunBenchmark () {
     FnLog "Running benckmark for $1 app"
     cd $BASE_DIR
-    npm run start:prod -- --androidBench=true --framework $1
+    npm run start:bench -- --androidBench=true --framework $1
 }
 
 ####################
@@ -55,11 +64,12 @@ FnRunBenchmark () {
 
 Main () {
   for framework in  $FRAMEWORKS_DIR/*; do
-    # FnClearDependencies   $framework
-    # FnInstallDependencies $framework
-    # FnConstructBuild      $framework
+#    FnClearDependencies   $framework
+#    FnInstallDependencies $framework
+    FnConstructBuild      $framework
     FnRunHTTPServer       $framework
     FnRunBenchmark        $(basename $framework)
+    kill "$SERVER_PID" > /dev/null
   done
 }
 

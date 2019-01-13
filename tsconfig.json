@@ -5,7 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "allowJs": true,
-    "sourceMap": true,
+    // "sourceMap": true,
     "outDir": "./dist/",
     "noLib": false,
     "noImplicitAny": true,

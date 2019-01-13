@@ -421,6 +421,8 @@ function writeResult(res, dir) {
         const result = {
             framework: res.framework.fullNameWithVersion,
             benchmark: resultKind.id,
+            label: benchmark.label,
+            description: benchmark.description,
             type,
             min: s.min(),
             max: s.max(),
@@ -567,4 +569,3 @@ process.on('message', (msg) => {
         process.exit(1);
     }
 });
-//# sourceMappingURL=forkedBenchmarkRunner.js.map

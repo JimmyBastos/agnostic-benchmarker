@@ -104,6 +104,44 @@ function testTextNotContained(driver, xpath, text, timeout = common_1.config.TIM
     }), timeout);
 }
 exports.testTextNotContained = testTextNotContained;
+function testTextEqual(driver, xpath, text, timeout = common_1.config.TIMEOUT) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return waitForCondition(driver)(`testTextContains ${xpath} ${text}`, (webDriver) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let elem = yield shadowRoot(webDriver);
+                elem = yield findByXPath(elem, xpath);
+                if (elem == null) {
+                    return false;
+                }
+                const value = yield elem.getText();
+                return !!value && (value === text);
+            }
+            catch (err) {
+                common_1.skipError('testTextEqual', err, xpath, `text = ${text}`);
+                return false;
+            }
+        }), timeout);
+    });
+}
+exports.testTextEqual = testTextEqual;
+function testTextNotEqual(driver, xpath, text, timeout = common_1.config.TIMEOUT) {
+    return waitForCondition(driver)(`testTextNotEqual ${xpath} ${text}`, (webDriver) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            let elem = yield shadowRoot(webDriver);
+            elem = yield findByXPath(elem, xpath);
+            if (elem == null) {
+                return false;
+            }
+            const value = yield elem.getText();
+            return !!value && (value !== text);
+        }
+        catch (err) {
+            common_1.skipError('testTextNotEqual', err, xpath, `text = ${text}`);
+            return false;
+        }
+    }), timeout);
+}
+exports.testTextNotEqual = testTextNotEqual;
 function testClassContains(driver, xpath, text, timeout = common_1.config.TIMEOUT) {
     return waitForCondition(driver)(`testClassContains ${xpath} ${text}`, (webDriver) => __awaiter(this, void 0, void 0, function* () {
         try {
@@ -221,4 +259,3 @@ function shadowRoot(driver) {
             : yield driver.findElement(selenium_webdriver_1.By.tagName('body'));
     });
 }
-//# sourceMappingURL=webdriverAccess.js.map

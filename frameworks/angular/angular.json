@@ -26,9 +26,7 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "node_modules/pure-css/lib/base.css",
-              "node_modules/pure-css/lib/buttons.css",
-              "node_modules/pure-css/lib/grids.css",
+              "node_modules/pure-css/",
               "src/assets/styles/main.sass"
             ],
             "scripts": []

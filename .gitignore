@@ -74,7 +74,7 @@ typings/
 .fusebox/
 
 # Benchmark Data
-results/
+# results/
 prefs/
 
 # End of https://www.gitignore.io/api/node

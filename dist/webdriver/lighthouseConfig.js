@@ -40,4 +40,3 @@ exports.lhConfig = {
         },
     },
 };
-//# sourceMappingURL=lighthouseConfig.js.map

@@ -15,7 +15,6 @@ const store = new Store();
 })
 
 export class AppComponent {
-  title = 'angular-benchmark';
   colors = Object.freeze(store.colors);
   amount = 100;
 

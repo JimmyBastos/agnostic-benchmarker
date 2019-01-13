@@ -426,6 +426,8 @@ function writeResult<T>(res: IResult<T>, dir: string) {
     const result: IJSONResult = {
       framework: res.framework.fullNameWithVersion,
       benchmark: resultKind.id,
+      label: benchmark.label,
+      description: benchmark.description,
       type,
       min: s.min(),
       max: s.max(),

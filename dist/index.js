@@ -140,4 +140,3 @@ else {
         console.log('run was not completely sucessful');
     });
 }
-//# sourceMappingURL=index.js.map

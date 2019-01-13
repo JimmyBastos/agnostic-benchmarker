@@ -8,8 +8,9 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "rimraf ./node-modules/.bin/npm && echo 'manually removed node-modules/.bin/npm'",
-    "start:prod": "yarn build:prod && node ./dist/index.js",
-    "build:prod": "tsc"
+    "build:prod": "tsc",
+    "start:bench": "node ./dist/index.js",
+    "full:bench": "npm run build:prod && ./RunFullBenchmark.sh"
   },
   "devDependencies": {
     "@types/node": "^10.12.12",

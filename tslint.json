@@ -32,7 +32,7 @@
     ]
   },
   "jsRules": {
-    "max-line-length": false,
+    "max-line-length": false
     // "key-spacing": [
     //   "error",
     //   {
