@@ -1,1 +1,0 @@
-{"framework":"vue@2.5.21","benchmark":"01_add_one","label":"adicionar item","description":"Tempo gasto para inserir um registro na lista","type":"cpu","min":14.132,"max":23.264,"mean":19.4027,"median":20.008000000000003,"geometricMean":19.15883450285968,"standardDeviation":3.159972012885909,"values":[21.524,18.896,16.404,14.132,22.094,15.963,21.12,22.522,18.108,23.264]}

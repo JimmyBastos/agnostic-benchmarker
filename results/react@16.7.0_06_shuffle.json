@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"06_shuffle","label":"embaralhar lista","description":"Duração para embaralhar uma lista de 50 items","type":"cpu","min":50.355,"max":63.702,"mean":57.95120000000001,"median":58.206,"geometricMean":57.85017164807297,"standardDeviation":3.551539816286264,"values":[59.932,56.962,59.319,57.807,57.703,50.355,54.81,63.702,60.317,58.605]}

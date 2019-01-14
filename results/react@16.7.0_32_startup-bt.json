@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"32_startup-bt","label":"tempo de inicialização","description":"Tempo para analisar/compilar/avaliar os scripts (html, css, js)","type":"startup","min":139.512,"max":145.844,"mean":143.56599999999997,"median":144.454,"geometricMean":143.54547749646343,"standardDeviation":2.7879751314051058,"values":[144.212,145.844,139.512,144.696]}

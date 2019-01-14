@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"03_update_one","label":"atualizar item","description":"Tempo gasto para atualizar um registro.","type":"cpu","min":6.674,"max":14.41,"mean":10.5738,"median":9.707999999999998,"geometricMean":10.26480215153809,"standardDeviation":2.692855188580824,"values":[9.433,13.584,9.767,14.41,7.983,8.571,11.708,9.649,13.959,6.674]}

@@ -1,1 +1,0 @@
-{"framework":"angular@7.1.4","benchmark":"08_clear50","label":"limpar lista","description":"Duração para limpar uma lista com 50 registros","type":"cpu","min":13.922,"max":20.553,"mean":16.5336,"median":16.552,"geometricMean":16.450512324465937,"standardDeviation":1.7814648279809886,"values":[16.718,20.553,14.451,16.349,16.724,15.989,16.863,16.386,13.922,17.381]}

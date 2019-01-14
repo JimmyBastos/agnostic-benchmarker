@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"02_remove_one","label":"remover item","description":"Tempo gasto para remover um registro","type":"cpu","min":5.253,"max":16.361,"mean":7.361199999999999,"median":6.33,"geometricMean":6.941792582108336,"standardDeviation":3.262574845459062,"values":[7.674,5.68,6.175,6.102,6.485,7.256,5.457,16.361,7.169,5.253]}

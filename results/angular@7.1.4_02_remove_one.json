@@ -1,1 +1,0 @@
-{"framework":"angular@7.1.4","benchmark":"02_remove_one","label":"remover item","description":"Tempo gasto para remover um registro","type":"cpu","min":6.647,"max":15.073,"mean":9.767800000000001,"median":10.0805,"geometricMean":9.443162454092462,"standardDeviation":2.7032626706753207,"values":[7.279,11.007,10.586,10.123,12.313,7.892,15.073,6.647,10.038,6.72]}

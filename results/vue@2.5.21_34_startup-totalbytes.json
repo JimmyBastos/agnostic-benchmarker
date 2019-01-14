@@ -1,1 +1,0 @@
-{"framework":"vue@2.5.21","benchmark":"34_startup-totalbytes","label":"tempo de inicialização","description":"Tempo para analisar/compilar/avaliar os scripts (html, css, js)","type":"startup","min":127.1640625,"max":127.1640625,"mean":127.1640625,"median":127.1640625,"geometricMean":127.1640625,"standardDeviation":0,"values":[127.1640625,127.1640625,127.1640625,127.1640625]}

@@ -1,1 +1,0 @@
-{"framework":"vue@2.5.21","benchmark":"02_remove_one","label":"remover item","description":"Tempo gasto para remover um registro","type":"cpu","min":7.624,"max":17.608,"mean":13.9348,"median":14.371500000000001,"geometricMean":13.549348572981001,"standardDeviation":3.1824087243609815,"values":[13.712,7.624,14.3,17.608,16.078,14.443,17.394,15.791,10.1,12.298]}

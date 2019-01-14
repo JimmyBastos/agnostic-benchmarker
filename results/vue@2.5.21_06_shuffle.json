@@ -1,1 +1,0 @@
-{"framework":"vue@2.5.21","benchmark":"06_shuffle","label":"embaralhar lista","description":"Duração para embaralhar uma lista de 50 items","type":"cpu","min":92.928,"max":125.284,"mean":107.856,"median":108.5465,"geometricMean":107.54363774437265,"standardDeviation":8.659638329630173,"values":[104.178,108.133,125.284,107.749,110.906,92.928,108.96,110.33,112.197,97.895]}

@@ -1,1 +1,0 @@
-{"framework":"angular@7.1.4","benchmark":"06_shuffle","label":"embaralhar lista","description":"Duração para embaralhar uma lista de 50 items","type":"cpu","min":38.383,"max":45.086,"mean":41.8554,"median":42.08,"geometricMean":41.78839105685779,"standardDeviation":2.4921235121879497,"values":[44.723,45.086,43.755,39.291,39.791,43.83,39.535,42.901,38.383,41.259]}

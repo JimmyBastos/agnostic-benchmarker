@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"01_add_one","label":"adicionar item","description":"Tempo gasto para inserir um registro na lista","type":"cpu","min":10.402,"max":29.966,"mean":15.417700000000002,"median":12.4665,"geometricMean":14.324500047380996,"standardDeviation":6.963044641374761,"values":[29.966,17.109,10.429,10.402,12.917,25.99,12.016,11.035,13.084,11.229]}

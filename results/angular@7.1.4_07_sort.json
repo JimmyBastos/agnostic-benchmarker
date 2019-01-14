@@ -1,1 +1,0 @@
-{"framework":"angular@7.1.4","benchmark":"07_sort","label":"ordenar lista","description":"Duração para ordenar uma lista de 50 items","type":"cpu","min":36.779,"max":46.235,"mean":42.08469999999999,"median":42.965,"geometricMean":41.963994678721264,"standardDeviation":3.314707731376092,"values":[37.183,36.779,40.609,44.188,46.235,45.196,40.152,42.039,43.891,44.575]}

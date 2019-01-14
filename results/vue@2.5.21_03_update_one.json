@@ -1,1 +1,0 @@
-{"framework":"vue@2.5.21","benchmark":"03_update_one","label":"atualizar item","description":"Tempo gasto para atualizar um registro.","type":"cpu","min":8.161,"max":20.984,"mean":16.5652,"median":17.244,"geometricMean":16.062683321379502,"standardDeviation":3.848252931165287,"values":[17.387,19.322,15.58,20.339,18.733,20.984,13.095,14.95,8.161,17.101]}
