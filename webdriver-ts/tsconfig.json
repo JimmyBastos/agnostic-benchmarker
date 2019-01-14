@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": true,
+    // "sourceMap": true,
+    "outDir": "./dist/",
+    "noLib": false,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "src/*"
+      ]
+    }
+  },
+  "files": [
+    "./src/index.ts",
+    "./src/benchmarks.ts",
+    "./src/common.ts",
+    "./src/forkedBenchmarkRunner.ts",
+    "./src/lighthouseConfig.ts",
+    "./src/webdriverAccess.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
