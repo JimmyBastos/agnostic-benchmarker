@@ -3,7 +3,8 @@ import _random from 'lodash/random';
 
 const rgbColorFactory = (red: number, green: number, blue: number): string => `rgb(${red}, ${green}, ${blue})`;
 
-const randomColor = (lower: number = 0, upper: number = 255): string => '#'+ ('000000' + Math.floor(Math.random()*(1<<24)|0)).toString(16).substr(-6);
+/* tslint:disable-next-line */
+const randomColor = (): string => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0)) as any).toString(16).substr(-6))
 
 let _currentIndex = 0;
 
