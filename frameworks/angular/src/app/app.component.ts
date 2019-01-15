@@ -3,66 +3,87 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 
-import { Store, Color } from '../store';
+import _shf from 'lodash/shuffle';
 
-const store = new Store();
+/* tslint:disable-next-line */
+const randomColor = (): string => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0)) as any).toString(16).substr(-6))
+
+function generateAmountOfColors(amount: number = 1, startIdx: number = 0): IColor[] {
+  const colors: IColor[] = [];
+  for (let i = 0; i < amount; i++) { colors.push({ id: startIdx + i + 1, color: randomColor() }); }
+  return colors;
+}
+
+interface IColor {
+  id: number;
+  color: string;
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class AppComponent {
-  colors = Object.freeze(store.colors);
-  amount = 100;
+  public colors: IColor[] = [];
+  public amount = 100;
 
-  trackById(index: number, item: Color): number {
+  public trackById(index: number, item: IColor): number {
     return item.id;
   }
 
-  prevent($evt: Event) {
+  public prevent($evt: Event) {
     $evt.stopPropagation();
     $evt.preventDefault();
   }
 
-  add(amount: number = 1) {
-    store.appendColors(amount);
-    this.syncData();
+  public add(amount: number = 1) {
+    this.colors = ([] as IColor[]).concat(
+      generateAmountOfColors(amount, this.colors.length),
+      this.colors,
+    );
   }
 
-  shuffle() {
-    store.shuffleColors();
-    this.syncData();
+  public shuffle() {
+    this.colors = _shf(this.colors);
   }
 
-  sort() {
-    store.sortColorsById();
-    this.syncData();
+  public sort() {
+    this.colors = [...this.colors].sort((next, curr) => (next.id - curr.id));
   }
 
-  swap(rows: [number, number]) {
-    store.swapColors(rows);
-    this.syncData();
+  public swap([idxOne, idxTwo]: [number, number]) {
+    const size = this.colors.length;
+    if (size > idxOne && size > idxTwo) {
+      const newColorOne = this.colors[idxTwo];
+      const newColorTwo = this.colors[idxOne];
+      const newColors = [...this.colors];
+      newColors[idxOne] = newColorOne;
+      newColors[idxTwo] = newColorTwo;
+      this.colors = newColors;
+    }
   }
 
-  updateColor(id: number) {
-    store.updateColor(id);
-    this.syncData();
+  public updateColor(colorID: number) {
+    const idx = this.colors.findIndex((clr) => clr.id === +colorID);
+    const newColors = [...this.colors]; newColors[idx] = { id: newColors[idx].id, color: randomColor() } as IColor;
+    this.colors = newColors;
   }
 
-  deleteColor(id: number) {
-    store.deleteColor(id);
-    this.syncData();
+  public deleteColor(colorID: number) {
+    const idx = this.colors.findIndex((clr) => clr.id === +colorID);
+
+    if (idx !== -1) {
+      this.colors = ([] as IColor[]).concat(
+        this.colors.slice(0, idx),
+        this.colors.slice(idx + 1),
+      );
+    }
   }
 
-  clear() {
-    store.clearColors();
-    this.syncData();
-  }
-
-  syncData() {
-    this.colors = Object.freeze(store.colors);
+  public clear() {
+    this.colors = [];
   }
 }

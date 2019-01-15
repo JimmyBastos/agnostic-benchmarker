@@ -4,11 +4,11 @@ import _rnd from 'lodash/random'
 import _shf from 'lodash/shuffle'
 
 /* tslint:disable-next-line */
-const randomColor = (): string =>('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0)) as any).toString(16).substr(-6))
+const randomColor = (): string => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0)) as any).toString(16).substr(-6))
 
 function generateAmountOfColors(amount: number = 1, startIdx: number = 0): IColor[] {
   const colors: IColor[] = []
-  for (let i = 0; i < amount; i++) { colors.push({ id: startIdx + i + 1, color: randomColor()  }) }
+  for (let i = 0; i < amount; i++) { colors.push({ id: startIdx + i + 1, color: randomColor() }) }
   return colors
 }
 
@@ -20,17 +20,8 @@ interface IColor {
 @Component({})
 export default class App extends Vue {
   /* tslint:disable-next-line */
-  public colors: Array<IColor> = []
+  public colors: IColor[] = []
   public amount = 100
-
-  public trackById(index: number, item: IColor): number {
-    return item.id
-  }
-
-  public prevent($evt: Event) {
-    $evt.stopPropagation()
-    $evt.preventDefault()
-  }
 
   public add(amount: number = 1) {
     this.colors = ([] as IColor[]).concat(
@@ -60,9 +51,8 @@ export default class App extends Vue {
   }
 
   public updateColor(colorID: number) {
-     const idx = this.colors.findIndex((clr) => clr.id === +colorID)
-     const newColors = [...this.colors]; newColors[idx] = { id: newColors[idx].id, color: randomColor()  }
-     this.colors = newColors
+    const idx = this.colors.findIndex((clr) => clr.id === +colorID)
+    this.colors[idx] = { id: this.colors[idx].id, color: randomColor() } as IColor
   }
 
   public deleteColor(colorID: number) {

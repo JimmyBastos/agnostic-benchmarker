@@ -3,12 +3,7 @@ import _shuffle from 'lodash/shuffle'
 
 const rgbColorFactory = (red, green, blue) => `rgb(${red}, ${green}, ${blue})`
 
-const randomColor = (lower = 0, upper = 255) =>
-  rgbColorFactory(
-    _random(lower, upper),
-    _random(lower, upper),
-    _random(lower, upper)
-  )
+const randomColor = () => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0))).toString(16).substr(-6))
 
 let _currentIndex = 0
 
