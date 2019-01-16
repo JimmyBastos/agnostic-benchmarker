@@ -310,7 +310,7 @@ function buildDriver(benchmarkOptions: IBenchmarkDriverOptions) {
     options = options.androidPackage('com.android.chrome')
   }
 
-  let chromeArgs: Array<string> = [
+  const chromeArgs: string[] = [
     '--js-flags=--expose-gc',
     '--no-sandbox',
     '--no-first-run',
@@ -426,8 +426,8 @@ function writeResult<T>(res: IResult<T>, dir: string) {
     const result: IJSONResult = {
       framework: res.framework.fullNameWithVersion,
       benchmark: resultKind.id,
-      label: benchmark.label,
-      description: benchmark.description,
+      label: resultKind.label,
+      description: resultKind.description,
       type,
       min: s.min(),
       max: s.max(),
@@ -510,6 +510,7 @@ async function runStartupBenchmark(framework: IFrameworkData, benchmark: Benchma
 
   const errors: IBenchmarkError[] = []
   const results: ILighthouseData[] = []
+
   for (let i = 0; i < benchmarkOptions.numIterationsForStartupBenchmark; i++) {
     try {
       results.push(await runLighthouse(framework, benchmarkOptions))
@@ -525,6 +526,7 @@ async function runStartupBenchmark(framework: IFrameworkData, benchmark: Benchma
 export async function executeBenchmark(frameworks: IFrameworkData[], frameworkName: string, benchmarkName: string, benchmarkOptions: IBenchmarkOptions): Promise<IErrorsAndWarning> {
   const runFrameworks = frameworks.filter((f) => frameworkName === f.name)
   const runBenchmarks = benchmarks.filter((b) => benchmarkName === b.id)
+
   if (runFrameworks.length !== 1) { throw new Error(`Framework name ${frameworkName} is not unique`) }
   if (runBenchmarks.length !== 1) { throw new Error(`Benchmark name ${benchmarkName} is not unique`) }
 

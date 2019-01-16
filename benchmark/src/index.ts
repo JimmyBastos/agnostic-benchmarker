@@ -12,7 +12,7 @@ const frameworks = initializeFrameworks()
 function forkedRun(frameworkName: string, benchmarkName: string, benchmarkOptions: IBenchmarkOptions): Promise<IErrorsAndWarning> {
   if (config.FORK_CHROMEDRIVER) {
     return new Promise((resolve, reject) => {
-      const forked = fork('dist/webdriver/forkedBenchmarkRunner.js')
+      const forked = fork('dist/forkedBenchmarkRunner.js')
       if (config.LOG_DEBUG) { console.log('forked child process') }
       forked.send({ frameworks, frameworkName, benchmarkName, benchmarkOptions })
       forked.on('message', (msg) => {
@@ -119,7 +119,7 @@ config.REPEAT_RUN = count
 config.FORK_CHROMEDRIVER = args.fork === 'true'
 config.RUN_ON_ANDROID_ADB = args.androidBench === 'true'
 
-const dir = args.check === 'true' ? 'results-check' : 'results-json'
+const dir = args.check === 'true' ? 'results-check' : '../result-data'
 const exitOnError = args.exitOnError === 'true'
 
 config.EXIT_ON_ERROR = exitOnError

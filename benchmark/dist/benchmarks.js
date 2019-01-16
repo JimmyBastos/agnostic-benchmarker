@@ -460,11 +460,39 @@ const benchClearMemory = new class extends Benchmark {
  *
  * Time to application startup
  *************************************************/
+const benchStartupConsistentlyInteractive = {
+    id: '31_startup-ci',
+    label: 'Iniciar interação',
+    description: 'Tempo até interatividade',
+    type: BenchmarkType.STARTUP,
+    property: 'TimeToConsistentlyInteractive',
+};
+const benchStartupBootup = {
+    id: '32_startup-bt',
+    label: 'Carregamento de scripts',
+    description: 'Tempo total para carregar, compilar e avaliar todos os scripts da página.',
+    type: BenchmarkType.STARTUP,
+    property: 'ScriptBootUpTtime',
+};
+const benchStartupMainThreadWorkCost = {
+    id: '33_startup-mainthreadcost',
+    label: 'Tread principal',
+    description: 'Tempo total executando tarefas na thread principal.',
+    type: BenchmarkType.STARTUP,
+    property: 'MainThreadWorkCost',
+};
+const benchStartupTotalBytes = {
+    id: '34_startup-totalbytes',
+    label: 'Consumo de dados (kB)',
+    description: 'Custo de recursos de rede de todos os recursos carregados na página (gziped).',
+    type: BenchmarkType.STARTUP,
+    property: 'TotalKiloByteWeight',
+};
 class BenchStartup extends Benchmark {
     constructor() {
         super({
             id: '30_startup',
-            label: 'Tempo de inicialização',
+            label: 'Inicialização',
             description: 'Tempo para analisar/compilar/avaliar os scripts (html, css, js)',
             type: BenchmarkType.STARTUP,
         });
@@ -491,39 +519,26 @@ class BenchStartup extends Benchmark {
         ];
     }
 }
-const benchStartupConsistentlyInteractive = {
-    id: '31_startup-ci',
-    label: 'Permitir interação',
-    description: 'Tempo até interatividade',
-    type: BenchmarkType.STARTUP,
-    property: 'TimeToConsistentlyInteractive',
-};
-const benchStartupBootup = {
-    id: '32_startup-bt',
-    label: 'Carregamento de scripts',
-    description: 'Tempo total para carregar, compilar e avaliar todos os scripts da página.',
-    type: BenchmarkType.STARTUP,
-    property: 'ScriptBootUpTtime',
-};
-const benchStartupMainThreadWorkCost = {
-    id: '33_startup-mainthreadcost',
-    label: 'Tread principal',
-    description: 'Tempo total executando tarefas na thread principal.',
-    type: BenchmarkType.STARTUP,
-    property: 'MainThreadWorkCost',
-};
-const benchStartupTotalBytes = {
-    id: '34_startup-totalbytes',
-    label: 'Consumo de dados (kB)',
-    description: 'Custo de recursos de rede de todos os recursos carregados na página (gziped).',
-    type: BenchmarkType.STARTUP,
-    property: 'TotalKiloByteWeight',
-};
 const benchStartup = new BenchStartup();
-console.log(benchStartup);
 exports.benchmarks = [
-    // benchStartup,
+    benchStartup,
     benchAddOne,
+    benchUpdateOne,
+    benchRemoveOne,
+    benchSwapTwoRows,
+    benchPopulate,
+    // benchSuffle,
+    // benchSort,
+    benchClearAll,
+    benchReadyMemory,
+    benchAddOne5Memory,
+    benchUpdateOne5Memory,
+    benchAddRemoveOne5Memory,
+    benchSwapTwoRows5Memory,
+    benchPopulateMemory,
+    // benchSuffleMemory,
+    // benchSortMemory,
+    benchClearMemory,
 ];
 function fileName(framework, benchmark) {
     return `${framework.fullNameWithVersion}_${benchmark.id}.json`;

@@ -1,1 +1,0 @@
-{"framework":"angular@7.1.4","benchmark":"01_add_one","label":"adicionar item","description":"Tempo gasto para inserir um registro na lista","type":"cpu","min":7.806,"max":25.625,"mean":15.3303,"median":13.242,"geometricMean":14.384398899606168,"standardDeviation":5.780795025100113,"values":[22.891,13.466,11.908,18.31,25.625,18.365,12.393,13.018,7.806,9.521]}

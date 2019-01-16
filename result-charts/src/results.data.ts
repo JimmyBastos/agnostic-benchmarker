@@ -1,6 +1,6 @@
 // import { IJSONResult } from '../../src/webdriver/common'
 
-const resultsContext = require.context('../../result-json', false, /\.json$/)
+const resultsContext = require.context('../../result-data', false, /\.json$/)
 
 export type TypesResultValue =
   | 'min'

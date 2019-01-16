@@ -25,7 +25,7 @@ const frameworks = common_1.initializeFrameworks();
 function forkedRun(frameworkName, benchmarkName, benchmarkOptions) {
     if (common_1.config.FORK_CHROMEDRIVER) {
         return new Promise((resolve, reject) => {
-            const forked = child_process_1.fork('dist/webdriver/forkedBenchmarkRunner.js');
+            const forked = child_process_1.fork('dist/forkedBenchmarkRunner.js');
             if (common_1.config.LOG_DEBUG) {
                 console.log('forked child process');
             }
@@ -123,7 +123,7 @@ common_1.config.PORT = Number(args.port);
 common_1.config.REPEAT_RUN = count;
 common_1.config.FORK_CHROMEDRIVER = args.fork === 'true';
 common_1.config.RUN_ON_ANDROID_ADB = args.androidBench === 'true';
-const dir = args.check === 'true' ? 'results-check' : 'results-json';
+const dir = args.check === 'true' ? 'results-check' : '../result-data';
 const exitOnError = args.exitOnError === 'true';
 common_1.config.EXIT_ON_ERROR = exitOnError;
 console.log('fork chromedriver process?', common_1.config.FORK_CHROMEDRIVER);

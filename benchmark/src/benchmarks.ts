@@ -498,41 +498,9 @@ const benchClearMemory = new class extends Benchmark {
  *
  * Time to application startup
  *************************************************/
-class BenchStartup extends Benchmark {
-  constructor() {
-    super({
-      id: '30_startup',
-      label: 'Tempo de inicialização',
-      description: 'Tempo para analisar/compilar/avaliar os scripts (html, css, js)',
-      type: BenchmarkType.STARTUP,
-    })
-  }
-
-  public async init(driver: WebDriver) { await driver.get(`http://192.168.1.50:${config.PORT}/`) }
-
-  public async run(driver: WebDriver, framework: IFrameworkData) {
-    await driver.get(`http://192.168.1.50:${config.PORT}`)
-    await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
-    return driver.sleep(config.STARTUP_SLEEP_DURATION)
-  }
-
-  public extractResult(results: ILighthouseData[], resultKind: IBenchmarkInfo): number[] {
-    return results.reduce((a, v) => { a.push(v[(resultKind as IStartupBenchmarkResult).property]); return a }, new Array<number>())
-  }
-
-  public resultKinds() {
-    return [
-      benchStartupConsistentlyInteractive,
-      benchStartupBootup,
-      benchStartupMainThreadWorkCost,
-      benchStartupTotalBytes,
-    ]
-  }
-}
-
 const benchStartupConsistentlyInteractive: IStartupBenchmarkResult = {
   id: '31_startup-ci',
-  label: 'Permitir interação',
+  label: 'Iniciar interação',
   description: 'Tempo até interatividade',
   type: BenchmarkType.STARTUP,
   property: 'TimeToConsistentlyInteractive',
@@ -562,12 +530,41 @@ const benchStartupTotalBytes: IStartupBenchmarkResult = {
   property: 'TotalKiloByteWeight',
 }
 
+class BenchStartup extends Benchmark {
+  constructor() {
+    super({
+      id: '30_startup',
+      label: 'Inicialização',
+      description: 'Tempo para analisar/compilar/avaliar os scripts (html, css, js)',
+      type: BenchmarkType.STARTUP,
+    })
+  }
+
+  public async init(driver: WebDriver) { await driver.get(`http://192.168.1.50:${config.PORT}/`) }
+
+  public async run(driver: WebDriver, framework: IFrameworkData) {
+    await driver.get(`http://192.168.1.50:${config.PORT}`)
+    await testElementLocatedById(driver, 'button__add', SHORT_TIMEOUT)
+    return driver.sleep(config.STARTUP_SLEEP_DURATION)
+  }
+
+  public extractResult(results: ILighthouseData[], resultKind: IBenchmarkInfo): number[] {
+    return results.reduce((a, v) => { a.push(v[(resultKind as IStartupBenchmarkResult).property]); return a }, new Array<number>())
+  }
+
+  public resultKinds() {
+    return [
+      benchStartupConsistentlyInteractive,
+      benchStartupBootup,
+      benchStartupMainThreadWorkCost,
+      benchStartupTotalBytes,
+    ]
+  }
+}
+
 const benchStartup = new BenchStartup()
 
-console.log(benchStartup)
-
 export let benchmarks: Benchmark[] = [
-  // benchStartup,
   benchAddOne,
   // benchUpdateOne, /* Paint calls > 2 */
   // benchRemoveOne, /* Paint calls > 2 */
@@ -585,6 +582,7 @@ export let benchmarks: Benchmark[] = [
   // benchSuffleMemory,
   // benchSortMemory,
   // benchClearMemory,
+  // benchStartup,
 ]
 
 export function fileName(framework: IFrameworkData, benchmark: IBenchmarkInfo) {

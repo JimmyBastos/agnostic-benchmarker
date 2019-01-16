@@ -26,7 +26,7 @@ exports.config = {
     STARTUP_DURATION_FROM_EVENTLOG: true,
     STARTUP_SLEEP_DURATION: 1000,
     FORK_CHROMEDRIVER: true,
-    RUN_ON_ANDROID_ADB: false,
+    RUN_ON_ANDROID_ADB: true,
 };
 function isFrameworkData(data) {
     const hasName = data.name !== undefined;

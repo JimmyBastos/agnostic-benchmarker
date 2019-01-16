@@ -305,7 +305,7 @@ function buildDriver(benchmarkOptions) {
     if (common_1.config.RUN_ON_ANDROID_ADB) {
         options = options.androidPackage('com.android.chrome');
     }
-    let chromeArgs = [
+    const chromeArgs = [
         '--js-flags=--expose-gc',
         '--no-sandbox',
         '--no-first-run',
@@ -421,8 +421,8 @@ function writeResult(res, dir) {
         const result = {
             framework: res.framework.fullNameWithVersion,
             benchmark: resultKind.id,
-            label: benchmark.label,
-            description: benchmark.description,
+            label: resultKind.label,
+            description: resultKind.description,
             type,
             min: s.min(),
             max: s.max(),
