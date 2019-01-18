@@ -156,9 +156,9 @@ const benchSwapTwoRows = new class extends Benchmark {
 const benchSuffle = new class extends Benchmark {
     constructor() {
         super({
-            id: '06_shuffle',
-            label: 'Embaralhar lista',
-            description: 'Duração para embaralhar uma lista de 50 items',
+            id: '06_suffle',
+            label: 'Inverter lista',
+            description: 'Duração para inverter a ordem de uma lista de 50 items',
             type: BenchmarkType.CPU,
         });
     }
@@ -171,9 +171,8 @@ const benchSuffle = new class extends Benchmark {
     }
     run(driver) {
         return __awaiter(this, void 0, void 0, function* () {
-            const randomItem = Math.floor((Math.random() * TABLE_SIZE) + 1);
             yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
-            yield webdriverAccess_1.testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextEqual(driver, `//tbody/tr[1]/td[1]`, TABLE_SIZE.toString(), SHORT_TIMEOUT);
         });
     }
 }();
@@ -188,15 +187,14 @@ const benchSort = new class extends Benchmark {
     }
     init(driver) {
         return __awaiter(this, void 0, void 0, function* () {
-            const randomItem = Math.floor((Math.random() * TABLE_SIZE) + 1);
             // populate table
             yield webdriverAccess_1.testElementLocatedById(driver, 'button__populate', SHORT_TIMEOUT);
             yield webdriverAccess_1.clickElementById(driver, 'button__populate');
             yield webdriverAccess_1.testElementLocatedByXpath(driver, `//tbody/tr[${TABLE_SIZE}]/td[2]/span`);
-            // shuffle table
+            // reverse table
             yield webdriverAccess_1.testElementLocatedById(driver, 'button__shuffle', SHORT_TIMEOUT);
             yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
-            yield webdriverAccess_1.testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextEqual(driver, `//tbody/tr[1]/td[1]`, TABLE_SIZE.toString(), SHORT_TIMEOUT);
         });
     }
     run(driver) {
@@ -351,8 +349,8 @@ const benchSwapTwoRows5Memory = new class extends Benchmark {
             for (let i = 0; i < 5; i++) {
                 const oneRowPath = `//tbody/tr[1]/td[1]`, anotherRowPath = `// tbody/tr[${TABLE_SIZE}]/td[1]`, oneRowText = yield webdriverAccess_1.getTextByXPath(driver, oneRowPath), anotherRowText = yield webdriverAccess_1.getTextByXPath(driver, anotherRowPath);
                 yield webdriverAccess_1.clickElementById(driver, 'button__swap');
-                yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[50]/td[1]`, oneRowText, SHORT_TIMEOUT);
-                yield webdriverAccess_1.testTextContains(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT);
+                yield webdriverAccess_1.testTextEqual(driver, `//tbody/tr[50]/td[1]`, oneRowText, SHORT_TIMEOUT);
+                yield webdriverAccess_1.testTextEqual(driver, `//tbody/tr[1]/td[1]`, anotherRowText, SHORT_TIMEOUT);
             }
         });
     }
@@ -382,8 +380,8 @@ const benchSuffleMemory = new class extends Benchmark {
     constructor() {
         super({
             id: '26_shuffle-memory',
-            label: 'Embaralhar lista',
-            description: 'Uso de memória para embaralhar uma lista de 50 items',
+            label: 'Inverter lista',
+            description: 'Uso de memória para inverter a ordem de uma lista de 50 items',
             type: BenchmarkType.MEM,
         });
     }
@@ -398,7 +396,7 @@ const benchSuffleMemory = new class extends Benchmark {
         return __awaiter(this, void 0, void 0, function* () {
             const randomItem = Math.floor((Math.random() * TABLE_SIZE) + 1);
             yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
-            yield webdriverAccess_1.testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextEqual(driver, `//tbody/tr[1]/td[1]`, TABLE_SIZE.toString(), SHORT_TIMEOUT);
         });
     }
 }();
@@ -421,7 +419,7 @@ const benchSortMemory = new class extends Benchmark {
             // shuffle table
             yield webdriverAccess_1.testElementLocatedById(driver, 'button__shuffle', SHORT_TIMEOUT);
             yield webdriverAccess_1.clickElementById(driver, 'button__shuffle');
-            yield webdriverAccess_1.testTextNotEqual(driver, `//tbody/tr[${randomItem}]/td[1]`, randomItem.toString(), SHORT_TIMEOUT);
+            yield webdriverAccess_1.testTextEqual(driver, `//tbody/tr[1]/td[1]`, TABLE_SIZE.toString(), SHORT_TIMEOUT);
         });
     }
     run(driver) {
@@ -521,24 +519,24 @@ class BenchStartup extends Benchmark {
 }
 const benchStartup = new BenchStartup();
 exports.benchmarks = [
-    benchStartup,
     benchAddOne,
     benchUpdateOne,
     benchRemoveOne,
     benchSwapTwoRows,
+    benchSuffle,
+    benchSort,
     benchPopulate,
-    // benchSuffle,
-    // benchSort,
     benchClearAll,
     benchReadyMemory,
     benchAddOne5Memory,
     benchUpdateOne5Memory,
     benchAddRemoveOne5Memory,
     benchSwapTwoRows5Memory,
+    benchSuffleMemory,
+    benchSortMemory,
     benchPopulateMemory,
-    // benchSuffleMemory,
-    // benchSortMemory,
     benchClearMemory,
+    benchStartup,
 ];
 function fileName(framework, benchmark) {
     return `${framework.fullNameWithVersion}_${benchmark.id}.json`;

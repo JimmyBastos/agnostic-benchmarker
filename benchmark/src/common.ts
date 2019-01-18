@@ -7,7 +7,7 @@ export const skipError = (caller: string, err: Error, xpath: string, message = '
 export let config = {
   FRAMEWORKS_DIR: '../frameworks',
   PORT: 8080,
-  REPEAT_RUN: 10,
+  REPEAT_RUN: 20,
   REPEAT_RUN_STARTUP: 4,
   DROP_WORST_RUN: 0,
   WARMUP_COUNT: 5,
