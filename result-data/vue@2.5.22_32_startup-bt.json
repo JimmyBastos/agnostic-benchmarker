@@ -1,0 +1,1 @@
+{"framework":"vue@2.5.22","benchmark":"32_startup-bt","label":"Carregamento de scripts","description":"Tempo total para carregar, compilar e avaliar todos os scripts da página.","type":"startup","min":16,"max":16,"mean":16,"median":16,"geometricMean":16,"standardDeviation":0,"values":[16,16,16,16]}
