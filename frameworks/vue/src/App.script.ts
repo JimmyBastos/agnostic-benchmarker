@@ -1,10 +1,28 @@
 
 import { Component, Vue } from 'vue-property-decorator'
-import _rnd from 'lodash/random'
-import _shf from 'lodash/shuffle'
+// import _rnd from 'lodash/random'
+// import _shf from 'lodash/shuffle'
 
-/* tslint:disable-next-line */
-const randomColor = (): string => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0)) as any).toString(16).substr(-6))
+let startTime: number
+let lastMeasure: (string | null)
+
+const startMeasure = (name: string) => {
+  startTime = performance.now()
+  lastMeasure = name
+}
+
+const stopMeasure = () => {
+  const last = lastMeasure
+  if (lastMeasure) {
+    window.setTimeout(() => {
+      lastMeasure = null
+      const stop = performance.now()
+      console.log(last + ' took ' + (stop - startTime)) // tslint:disable-line
+    }, 0)
+  }
+}
+
+const randomColor = (): string => ('#' + ('000000' + (Math.random() * (16777215) | 0) as any).toString(16).substr(-6)) // tslint:disable-line
 
 function generateAmountOfColors(amount: number = 1, startIdx: number = 0): IColor[] {
   const colors: IColor[] = []
@@ -31,7 +49,7 @@ export default class App extends Vue {
   }
 
   public shuffle() {
-    this.colors = _shf(this.colors)
+    this.colors = this.colors.reverse()
   }
 
   public sort() {
@@ -52,7 +70,7 @@ export default class App extends Vue {
 
   public updateColor(colorID: number) {
     const idx = this.colors.findIndex((clr) => clr.id === +colorID)
-    this.colors[idx] = { id: this.colors[idx].id, color: randomColor() } as IColor
+    this.colors[idx].color = randomColor()
   }
 
   public deleteColor(colorID: number) {

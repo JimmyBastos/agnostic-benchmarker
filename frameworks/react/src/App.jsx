@@ -188,7 +188,7 @@ class App extends Component {
                   className='pure-button app-button'
                   style={{ backgroundColor: 'DarkViolet' }}
                   onClick={this.handleShuffle}
-                >Embaralhar Lista</button>
+                >Inverter Lista</button>
               </div>
 
               {/* <!-- SORT COLORS-- > */}

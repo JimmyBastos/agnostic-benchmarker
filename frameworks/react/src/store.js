@@ -1,13 +1,11 @@
-import _random from 'lodash/random'
-import _shuffle from 'lodash/shuffle'
+// import _rnd from 'lodash/random'
+// import _shf from 'lodash/shuffle'
 
-const rgbColorFactory = (red, green, blue) => `rgb(${red}, ${green}, ${blue})`
+// const rgbColorFactory = (red, green, blue) => `rgb(${red}, ${green}, ${blue})`
 
-const randomColor = () => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0))).toString(16).substr(-6))
+const randomColor = () => ('#' + (('000000' + (Math.random() * (16777215) | 0))).toString(16).substr(-6)) // tslint:disable-line
 
-let _currentIndex = 0
-
-function generateAmountOfColors (amount = 1, startIndex = _currentIndex) {
+function generateAmountOfColors (amount = 1, startIndex) {
   return Array(amount).fill(0).map((_, i) => ({
     id    : startIndex + (++i),
     color : randomColor()
@@ -16,29 +14,18 @@ function generateAmountOfColors (amount = 1, startIndex = _currentIndex) {
 
 export class Store {
   constructor () {
-    this._colorList = []
-  }
-
-  get colors () {
-    return this._colorList
-  }
-
-  set colors (colors) {
-    this._colorList = colors
-    if (Array.isArray(colors)) {
-      _currentIndex = this._colorList.length
-    }
+    this.colors = []
   }
 
   appendColors (amount = 1) {
     this.colors = [].concat(
-      generateAmountOfColors(amount),
+      generateAmountOfColors(amount, this.colors.length),
       this.colors
     )
   }
 
   shuffleColors () {
-    this.colors = _shuffle(this.colors)
+    this.colors = this.colors.reverse()
   }
 
   sortColorsById () {
@@ -70,9 +57,7 @@ export class Store {
 
   updateColor (colorID) {
     const idx = this.colors.findIndex(clr => clr.id === +colorID)
-    let newColors = [...this.colors]
-    newColors[idx] = { ...newColors[idx], color: randomColor() }
-    this.colors = newColors
+    this.colors[idx].color = randomColor()
   }
 
   clearColors () {

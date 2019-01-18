@@ -54,7 +54,7 @@
               class="pure-button app-button"
               style="background-color: DarkViolet"
               @click="shuffle"
-            >Embaralhar Lista</button>
+            >Inverter Lista</button>
           </div>
 
           <!-- SORT COLORS -->
@@ -147,6 +147,5 @@
         </tbody>
       </table>
     </div>
-
   </div>
 </template>

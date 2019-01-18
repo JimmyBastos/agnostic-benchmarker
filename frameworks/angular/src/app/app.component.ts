@@ -1,12 +1,29 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component } from '@angular/core';
 
-import _shf from 'lodash/shuffle';
+// import _shf from 'lodash/shuffle';
+// import _rnd from 'lodash/random';
+
+let startTime: number;
+let lastMeasure: (string | null);
+
+const startMeasure = (name: string) => {
+  startTime = performance.now();
+  lastMeasure = name;
+};
+
+const stopMeasure = () => {
+  const last = lastMeasure;
+  if (lastMeasure) {
+    window.setTimeout(() => {
+      lastMeasure = null;
+      const stop = performance.now();
+      console.log(last + ' took ' + (stop - startTime)) // tslint:disable-line
+    }, 0);
+  }
+};
 
 /* tslint:disable-next-line */
-const randomColor = (): string => ('#' + (('000000' + Math.floor(Math.random() * (1 << 24) | 0)) as any).toString(16).substr(-6))
+const randomColor = (): string => ('#' + ('000000' + (Math.random() * (16777215) | 0) as any).toString(16).substr(-6)) // tslint:disable-line
 
 function generateAmountOfColors(amount: number = 1, startIdx: number = 0): IColor[] {
   const colors: IColor[] = [];
@@ -22,8 +39,7 @@ interface IColor {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./app.component.sass']
 })
 
 export class AppComponent {
@@ -47,7 +63,7 @@ export class AppComponent {
   }
 
   public shuffle() {
-    this.colors = _shf(this.colors);
+    this.colors = this.colors.reverse();
   }
 
   public sort() {
@@ -68,8 +84,7 @@ export class AppComponent {
 
   public updateColor(colorID: number) {
     const idx = this.colors.findIndex((clr) => clr.id === +colorID);
-    const newColors = [...this.colors]; newColors[idx] = { id: newColors[idx].id, color: randomColor() } as IColor;
-    this.colors = newColors;
+    this.colors[idx].color = randomColor();
   }
 
   public deleteColor(colorID: number) {

@@ -7,14 +7,13 @@
   },
   "scripts": {
     "start:dev": "cross-env vue-cli-service serve",
-    "start:server": "cross-env http-server ./dist",
+    "start:server": "cross-env http-server ./dist --gzip",
     "start:prod": "cross-env npm run build:prod && npm run start:server",
-    "build:prod": "cross-env vue-cli-service build --report-json --mode production",
+    "build:prod": "cross-env vue-cli-service build --report-json --modern --mode production",
     "postbuild:prod": "cross-env postcss ./dist/**/*.css --replace >> /dev/null",
     "analize": "cross-env npm run build:prod && webpack-bundle-analyzer ./dist/report.json"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.119",
     "pure-css": "^1.0.4",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.22",
@@ -41,8 +40,10 @@
     }
   },
   "browserslist": [
-    "> 1%",
+    "> 0.5%",
     "last 2 versions",
-    "not ie <= 8"
+    "Firefox ESR",
+    "not dead",
+    "not IE 9-11"
   ]
 }
