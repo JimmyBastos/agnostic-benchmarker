@@ -1,0 +1,1 @@
+{"framework":"angular@7.2.3","benchmark":"33_startup-mainthreadcost","label":"Tread principal","description":"Tempo total executando tarefas na thread principal.","type":"startup","min":926.052,"max":939.7,"mean":930.278,"median":927.68,"geometricMean":930.2613701387653,"standardDeviation":6.435748078765498,"values":[926.2439999999999,929.116,939.7,926.052]}

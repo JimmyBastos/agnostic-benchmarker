@@ -1,0 +1,1 @@
+{"framework":"angular@7.2.3","benchmark":"31_startup-ci","label":"Iniciar interação","description":"Tempo até interatividade","type":"startup","min":2774.5599999999995,"max":2880.4719999999998,"mean":2839.248,"median":2850.98,"geometricMean":2838.95949013055,"standardDeviation":46.57886490673653,"values":[2880.4719999999998,2864.2,2837.76,2774.5599999999995]}

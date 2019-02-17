@@ -4,7 +4,7 @@ import {
   resultsData,
   TypesResult,
   TypesResultValue
-} from '@/results.data.ts'
+} from '@/results.data'
 import { Bar, mixins as ChartMixins } from 'vue-chartjs'
 import { Component, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
 
@@ -32,6 +32,12 @@ export default class ResultChart extends Mixins(Bar) {
   private defaultOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    showTooltips : false,
+    showInlineValues : true,
+    centeredInllineValues : true,
+    tooltipCaretSize : 0,
+    tooltipTemplate : '<%= value %>',
+    fontSize: 14,
     scales: {
       yAxes: [
         {
@@ -54,11 +60,6 @@ export default class ResultChart extends Mixins(Bar) {
   }
 
   get resultsData (): object {
-    console.log(
-      resultsData,
-      this.resultDatasets
-    )
-
     return {
       labels: this.resultLabels,
       datasets: this.resultDatasets
@@ -75,25 +76,25 @@ export default class ResultChart extends Mixins(Bar) {
 
   get resultDatasets () {
     const getResults = (data: IJSONResult[], valueType: TypesResultValue, framework: string): object[] =>
-      data.filter((r) => r.framework.includes(framework)).map((r) => ({ x: r.label, y: r[valueType] }))
+      data.filter((r) => r.framework.includes(framework)).map((r) => ({ x: r.label, y: r[valueType].toFixed(2) }))
 
     return [
       new Dataset(
         'React',
         getResults(this.filteredResults, this.resultValueType, 'react'),
-        'rgba(97, 218, 251, .625)',
+        'rgba(97, 218, 251, 1)',
         'rgb(97, 218, 251)'
       ),
       new Dataset(
         'Angular',
         getResults(this.filteredResults, this.resultValueType, 'angular'),
-        'rgba(221, 0, 49, .625)',
+        'rgba(221, 0, 49, 1)',
         'rgb(221, 0, 49)'
       ),
       new Dataset(
         'Vue',
         getResults(this.filteredResults, this.resultValueType, 'vue'),
-        'rgba(66, 185, 131, .625)',
+        'rgba(66, 185, 131, 1)',
         'rgb(66, 185, 131)'
       )
     ]

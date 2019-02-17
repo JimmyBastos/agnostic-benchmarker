@@ -53,7 +53,7 @@ export default class App extends Vue {
   }
 
   public sort() {
-    this.colors = [...this.colors].sort((next, curr) => (next.id - curr.id))
+    this.colors = Array.from(this.colors).sort((next, curr) => (next.id - curr.id))
   }
 
   public swap([idxOne, idxTwo]: [number, number]) {

@@ -1,0 +1,1 @@
+{"framework":"vue@2.6.2","benchmark":"31_startup-ci","label":"Iniciar interação","description":"Tempo até interatividade","type":"startup","min":1695.592,"max":1744.5140000000001,"mean":1708.717375,"median":1697.38175,"geometricMean":1708.5933564056359,"standardDeviation":23.881301937481766,"values":[1744.5140000000001,1697.0054999999998,1697.758,1695.592]}
