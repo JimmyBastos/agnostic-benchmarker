@@ -1,38 +1,52 @@
 <template>
   <div id="app">
-    <ResultHighCharts
+    <ResultTable
       title="Startup"
       xAxisTitle="Tempo (ms)"
-      class="chart"
+      class="chart chart-sup"
       result-type="startup"
       result-value-type="median"
+      chart-height="400"
     />
-    <ResultHighCharts
+    <ResultTable
       title="Uso de CPU"
       xAxisTitle="Tempo (ms)"
-      class="chart"
+      class="chart chart-cpu"
       result-type="cpu"
       result-value-type="median"
+      chart-height="400"
     />
-    <ResultHighCharts
+    <ResultTable
       title="Uso de memoria RAM"
       xAxisTitle="Memoria (MB)"
-      class="chart"
+      class="chart chart-mem"
       result-type="memory"
       result-value-type="median"
+      chart-height="400"
+    />
+
+    <ResultFullTable
+      title="Uso de memoria RAM"
+      xAxisTitle="Memoria (MB)"
+      class="chart chart-mem"
+      result-type="memory"
+      result-value-type="median"
+      chart-height="400"
     />
   </div>
 </template>
 
 <script lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
-import ResultChartJs from '@/components/Charts/ResultChartJs.vue'
-import ResultHighCharts from '@/components/Charts/ResultHighCharts.vue'
-import { Component, Vue } from 'vue-property-decorator'
+import ResultChartJs from "@/components/Charts/ResultChartJs.vue";
+import ResultTable from "@/components/Tables/ResultTable.vue";
+import ResultFullTable from "@/components/Tables/ResultFullTable.vue";
+import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {
     ResultChartJs,
-    ResultHighCharts
+    ResultTable,
+    ResultFullTable
   }
 })
 export default class App extends Vue {}
@@ -40,11 +54,19 @@ export default class App extends Vue {}
 
 <style lang="scss">
 #app {
-  max-width: 1228px;
   margin: 0 auto;
-
   .chart {
     padding: 2rem 0;
+    margin: 0 auto;
+    // &-sup {
+    //   width: 600px;
+    // }
+    // &-cpu {
+    //   width: 950px;
+    // }
+    // &-mem {
+    //   width: 800px;
+    // }
   }
 }
 </style>
