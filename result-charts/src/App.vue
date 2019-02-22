@@ -38,10 +38,10 @@
 
 <script lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
-import ResultChartJs from "@/components/Charts/ResultChartJs.vue";
-import ResultTable from "@/components/Tables/ResultTable.vue";
-import ResultFullTable from "@/components/Tables/ResultFullTable.vue";
-import { Component, Vue } from "vue-property-decorator";
+import ResultChartJs from '@/components/Charts/ResultChartJs.vue'
+import ResultFullTable from '@/components/Tables/ResultFullTable.vue'
+import ResultTable from '@/components/Tables/ResultTable.vue'
+import { Component, Vue } from 'vue-property-decorator'
 @Component({
   components: {
     ResultChartJs,

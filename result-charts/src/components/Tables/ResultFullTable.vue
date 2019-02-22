@@ -30,51 +30,51 @@ import {
   resultsData,
   TypesResult,
   TypesResultValue
-} from "@/results.data";
-import { Chart } from "highcharts-vue";
-import { Component, Mixins, Prop, Vue, Watch } from "vue-property-decorator";
+} from '@/results.data'
+import { Chart } from 'highcharts-vue'
+import { Component, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
 
 class Dataset {
-  constructor(public name: string, public data: Array<number | object>) {}
+  constructor (public name: string, public data: Array<number | object>) {}
 }
 
 @Component()
 export default class ResultFullTable extends Vue {
   @Prop({ required: true })
-  public resultType!: TypesResult;
+  public resultType!: TypesResult
 
-  get resultLabels(): string[] {
+  get resultLabels (): string[] {
     return [
       ...new Set(
-        resultsData.map(r => {
-          return r.type + " - " + r.label;
+        resultsData.map((r) => {
+          return r.type + ' - ' + r.label
         })
       )
-    ] as string[];
+    ] as string[]
   }
 
-  get resultDatasets() {
+  get resultDatasets () {
     const formatResult = (result: number) =>
-      result.toFixed(2).replace(".", ",");
+      result.toFixed(2).replace('.', ',')
 
     const getResults = (data: IJSONResult[], framework: string): object[] =>
       data
-        .filter(result => result.framework.includes(framework))
-        .map(data => {
+        .filter((result) => result.framework.includes(framework))
+        .map((data) => {
           return {
             min: formatResult(data.min),
             max: formatResult(data.max),
             mean: formatResult(data.mean),
             geometricMean: formatResult(data.geometricMean),
             standardDeviation: formatResult(data.standardDeviation)
-          };
-        });
+          }
+        })
 
     return [
-      new Dataset("React", getResults(resultsData, "react")),
-      new Dataset("Angular", getResults(resultsData, "angular")),
-      new Dataset("Vue", getResults(resultsData, "vue"))
-    ];
+      new Dataset('React', getResults(resultsData, 'react')),
+      new Dataset('Angular', getResults(resultsData, 'angular')),
+      new Dataset('Vue', getResults(resultsData, 'vue'))
+    ]
   }
 }
 </script>

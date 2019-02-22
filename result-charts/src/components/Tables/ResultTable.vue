@@ -25,53 +25,53 @@ import {
   resultsData,
   TypesResult,
   TypesResultValue
-} from "@/results.data";
-import { Component, Mixins, Prop, Vue, Watch } from "vue-property-decorator";
+} from '@/results.data'
+import { Component, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
 
 class Dataset {
-  constructor(public name: string, public data: Array<number | object>) {}
+  constructor (public name: string, public data: Array<number | object>) {}
 }
 
 @Component()
 export default class ResultTable extends Vue {
   @Prop({ required: true })
-  public resultType!: TypesResult;
+  public resultType!: TypesResult
 
-  @Prop({ default: "median" })
-  public resultValueType!: TypesResultValue;
+  @Prop({ default: 'median' })
+  public resultValueType!: TypesResultValue
 
-  get filteredResults(): IJSONResult[] {
-    return resultsData.filter(r => r.type === this.resultType);
+  get filteredResults (): IJSONResult[] {
+    return resultsData.filter((r) => r.type === this.resultType)
   }
 
-  get resultLabels(): string[] {
-    return [...new Set(this.filteredResults.map(r => r.label || ""))];
+  get resultLabels (): string[] {
+    return [...new Set(this.filteredResults.map((r) => r.label || ''))]
   }
 
-  get resultDatasets() {
+  get resultDatasets () {
     const getResults = (
       data: IJSONResult[],
       valueType: TypesResultValue,
       framework: string
     ): number[] =>
       data
-        .filter(result => result.framework.includes(framework))
-        .map(resultData => resultData[valueType].toFixed(2).replace(".", ","));
+        .filter((result) => result.framework.includes(framework))
+        .map((resultData) => resultData[valueType].toFixed(2).replace('.', ','))
 
     return [
       new Dataset(
-        "React",
-        getResults(this.filteredResults, this.resultValueType, "react")
+        'React',
+        getResults(this.filteredResults, this.resultValueType, 'react')
       ),
       new Dataset(
-        "Angular",
-        getResults(this.filteredResults, this.resultValueType, "angular")
+        'Angular',
+        getResults(this.filteredResults, this.resultValueType, 'angular')
       ),
       new Dataset(
-        "Vue",
-        getResults(this.filteredResults, this.resultValueType, "vue")
+        'Vue',
+        getResults(this.filteredResults, this.resultValueType, 'vue')
       )
-    ];
+    ]
   }
 }
 </script>

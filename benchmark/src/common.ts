@@ -20,7 +20,7 @@ export let config = {
   STARTUP_DURATION_FROM_EVENTLOG: true,
   STARTUP_SLEEP_DURATION: 1000,
   FORK_CHROMEDRIVER: true,
-  RUN_ON_ANDROID_ADB: true,
+  RUN_ON_ANDROID_ADB: false,
 }
 
 export interface IJSONResult {

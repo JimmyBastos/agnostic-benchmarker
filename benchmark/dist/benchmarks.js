@@ -519,23 +519,23 @@ class BenchStartup extends Benchmark {
 }
 const benchStartup = new BenchStartup();
 exports.benchmarks = [
-    benchAddOne,
-    benchUpdateOne,
-    benchRemoveOne,
-    benchSwapTwoRows,
-    benchSuffle,
-    benchSort,
-    benchPopulate,
-    benchClearAll,
-    benchReadyMemory,
-    benchAddOne5Memory,
-    benchUpdateOne5Memory,
-    benchAddRemoveOne5Memory,
-    benchSwapTwoRows5Memory,
-    benchSuffleMemory,
-    benchSortMemory,
-    benchPopulateMemory,
-    benchClearMemory,
+    // benchAddOne,
+    // benchUpdateOne, /* Paint calls > 2 */
+    // benchRemoveOne, /* Paint calls > 2 */
+    // benchSwapTwoRows,
+    // benchSuffle,
+    // benchSort,
+    // benchPopulate,
+    // benchClearAll,
+    // benchReadyMemory,
+    // benchAddOne5Memory,
+    // benchUpdateOne5Memory,
+    // benchAddRemoveOne5Memory,
+    // benchSwapTwoRows5Memory,
+    // benchSuffleMemory,
+    // benchSortMemory,
+    // benchPopulateMemory,
+    // benchClearMemory,
     benchStartup,
 ];
 function fileName(framework, benchmark) {
