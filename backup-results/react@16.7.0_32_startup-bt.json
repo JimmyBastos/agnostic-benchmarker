@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"32_startup-bt","label":"Carregamento de scripts","description":"Tempo total para carregar, compilar e avaliar todos os scripts da página.","type":"startup","min":129.72,"max":181.212,"mean":146.091,"median":136.716,"geometricMean":144.77335794811768,"standardDeviation":23.692389636055427,"values":[129.72,181.212,138.548,134.884]}

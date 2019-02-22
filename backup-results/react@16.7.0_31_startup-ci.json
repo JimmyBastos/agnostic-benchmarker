@@ -1,1 +1,0 @@
-{"framework":"react@16.7.0","benchmark":"31_startup-ci","label":"Iniciar interação","description":"Tempo até interatividade","type":"startup","min":1863.1135,"max":1940.393,"mean":1885.1287499999999,"median":1868.5042500000002,"geometricMean":1884.8582746258373,"standardDeviation":37.10337955070039,"values":[1863.1135,1940.393,1864.121,1872.8875000000003]}
